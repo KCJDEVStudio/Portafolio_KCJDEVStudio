@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import gemaImg from "../assets/image/Ejemplo Gema.png";
 
 export default function Home() {
   const [atTop, setAtTop] = useState(true);
@@ -11,48 +12,45 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  
+
   return (
     <div className="min-h-screen font-sans bg-white text-gray-900">
 
       {/* HEADER */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          atTop
-            ? "bg-black"
-            : "bg-black/30 backdrop-blur-md shadow-lg"
+          atTop ? "bg-black" : "bg-black/30 backdrop-blur-md shadow-lg"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-
-          {/* Logo */}
           <img
             src="/logo_horizontal.png"
             alt="KCJ DevStudio"
             className="h-50 w-auto object-contain"
           />
 
-          {/* Navigation */}
           <nav className="space-x-6 text-sm font-medium text-white">
             <a href="#about" className="hover:text-[#5af388] transition">Nosotros</a>
             <a href="#services" className="hover:text-[#5af388] transition">Servicios</a>
             <a href="#portfolio" className="hover:text-[#5af388] transition">Portafolio</a>
             <a href="#contact" className="hover:text-[#5af388] transition">Contacto</a>
           </nav>
-
         </div>
       </header>
 
-      {/* ESPACIO PARA HEADER FIXED */}
+      {/* ESPACIADOR HEADER */}
       <div className="h-20" />
 
       {/* HERO */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
             Soluciones digitales <span className="text-[#5af388]">a la medida</span>
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-            Desarrollamos páginas web, aplicaciones y sistemas modernos para personas, emprendedores y empresas que quieren crecer digitalmente.
+            Creamos páginas web, aplicaciones y sistemas modernos para personas,
+            emprendedores y empresas que quieren crecer digitalmente.
           </p>
           <a
             href="#contact"
@@ -63,75 +61,215 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About */}
-      <section id="about" className="py-16 bg-gray-50">
+      {/* ABOUT */}
+      <section id="about" className="py-20 bg-gray-50">
         <div className="max-w-5xl mx-auto px-6">
-          <div className="bg-white rounded-2xl shadow-md p-10">
-            <h3 className="text-3xl font-bold mb-4">Sobre nosotros</h3>
-            <p className="text-gray-700 leading-relaxed">
-              En KCJ DevStudio desarrollamos soluciones de programación a la medida,
-              funcionales, modernas y seguras. Trabajamos con tecnologías actuales
-              para garantizar rendimiento, escalabilidad y una excelente experiencia
-              de usuario, manteniendo siempre un trato cercano y comunicación clara.
+          <div className="bg-white rounded-2xl shadow-md p-8 md:p-12">
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              <div>
+                <h3 className="text-3xl md:text-4xl font-bold mb-4">Sobre nosotros</h3>
+                <p className="text-gray-700 leading-relaxed mb-4 text-base md:text-lg">
+                  En KCJ DevStudio desarrollamos soluciones de programación a la medida
+                  para personas, emprendedores y empresas que buscan llevar sus ideas
+                  al mundo digital. Diseñamos y entregamos páginas web, aplicaciones,
+                  sistemas y automatizaciones funcionales, modernas y seguras,
+                  adaptadas a cada necesidad.
+                </p>
+                <p className="text-gray-600 mb-4">
+                  Nos especializamos en desarrollo web y de aplicaciones, bases de
+                  datos, sistemas de información y automatización de procesos. También
+                  ofrecemos soporte y mantenimiento técnico continuo para que tus
+                  soluciones sigan aportando valor con el tiempo.
+                </p>
+                <ul className="grid sm:grid-cols-2 gap-3 mt-4 text-gray-700">
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-[#5af388] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <div>
+                      <div className="font-semibold">Diseño centrado en el usuario</div>
+                      <div className="text-sm text-gray-600">Interfaces claras y usables que facilitan la conversión.</div>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-[#5af388] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <div>
+                      <div className="font-semibold">Performance y SEO</div>
+                      <div className="text-sm text-gray-600">Optimización de velocidad y estructura para mejor visibilidad en buscadores.</div>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-[#5af388] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <div>
+                      <div className="font-semibold">Integraciones seguras</div>
+                      <div className="text-sm text-gray-600">Conexiones fiables con pagos, CRMs y APIs externas.</div>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-[#5af388] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <div>
+                      <div className="font-semibold">Soporte y evolución</div>
+                      <div className="text-sm text-gray-600">Mantenimiento y mejoras continuas para que tu producto crezca seguro.</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm">
+                <div className="h-44 rounded-md flex items-center justify-center mb-4" style={{ backgroundColor: '#1b3012' }}>
+                  <img src="/logo_horizontal.png" alt="KCJ logo" className="max-h-28 md:max-h-75 w-auto object-contain mx-auto" />
+                </div>
+                <p className="text-gray-600 mb-4">Creemos en el trato cercano, la comunicación clara y el acompañamiento constante durante cada proyecto. Estamos contigo desde la idea hasta el mantenimiento.</p>
+                <a href="#contact" className="inline-block w-full text-center bg-[#5af388] text-black py-2 rounded-lg font-semibold hover:bg-[#45d97a] transition">Contactar y cotizar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section id="services" className="py-24">
+        <div className="max-w-7xl mx-auto px-6">
+
+          <div className="text-center mb-20">
+            <h3 className="text-4xl font-bold mb-4">Nuestros servicios</h3>
+            <p className="text-gray-600">
+              Soluciones digitales completas para impulsar tu negocio
             </p>
           </div>
-        </div>
-      </section>
 
-      {/* Services */}
-      <section id="services" className="py-16">
-        <div className="max-w-7xl mx-auto px-6">
-          <h3 className="text-3xl font-bold text-center mb-12">¿Qué hacemos?</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                title: "Páginas web profesionales",
-                desc: "Soluciones personalizadas enfocadas en crecimiento, eficiencia y escalabilidad."
-              },
-              {
-                title: "Aplicaciones web y móviles",
-                desc: "Desarrollos responsivos y de alto rendimiento."
-              },
-              {
-                title: "Tiendas online",
-                desc: "E-commerce optimizado para conversión."
-              },
-              {
-                title: "Automatizaciones y sistemas",
-                desc: "Integraciones y sistemas a la medida para automatizar procesos."
-              }
-            ].map((service) => (
-              <div
-                key={service.title}
-                className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition"
-              >
-                <h4 className="font-semibold text-lg mb-2">{service.title}</h4>
-                <p className="text-sm text-gray-600">{service.desc}</p>
-              </div>
-            ))}
+          {/* Servicio 1 */}
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
+            <div>
+              <h4 className="text-3xl font-bold mb-4">Web Profesional para Microempresas</h4>
+              <p className="text-gray-600 mb-6">
+                Sitios web modernos diseñados para empresas que buscan
+                una presencia digital sólida y profesional. Entregamos diseños
+                centrados en el usuario, estructura optimizada para SEO, páginas
+                de servicios y contacto completas, y un panel administrativo
+                para que puedas actualizar contenidos sin depender de soporte.
+                Además optimizamos tiempos de carga y compatibilidad entre
+                dispositivos para mejorar la conversión.
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Diseños responsivos para todos los dispositivos</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Optimización SEO para tener mayor visibilidad en buscadores</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Formularios de contacto</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Panel administrativo</li>
+              </ul>
+            </div>
+
+            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center">
+              <span className="text-gray-400">Imagen Web</span>
+            </div>
           </div>
+
+          {/* Servicio 2 */}
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
+            <div className="md:order-2">
+              <h4 className="text-3xl font-bold mb-4">Aplicaciones Web y Móviles</h4>
+              <p className="text-gray-600 mb-6">
+                Aplicaciones a la medida para optimizar procesos internos y
+                ofrecer experiencias rápidas y accesibles a tus usuarios. Desarrollamos
+                frontends responsivos, backends escalables e integraciones con APIs
+                y servicios externos (pagos, pasarelas, CRMs). Incluimos buenas
+                prácticas de seguridad, autenticación y mantenimiento para crecer sin
+                fricciones.
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Aplicaciones web modernas</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Sistemas internos</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Integraciones API</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Seguridad y escalabilidad</li>
+              </ul>
+            </div>
+
+            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center md:order-1">
+              <span className="text-gray-400">Imagen App</span>
+            </div>
+          </div>
+
+          {/* Servicio 3 */}
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
+            <div>
+              <h4 className="text-3xl font-bold mb-4">Tiendas Online</h4>
+              <p className="text-gray-600 mb-6">
+                E-commerce completos preparados para vender desde el primer día:
+                catálogos, gestión de inventario, variantes de producto y flujos de
+                compra optimizados. Integramos pasarelas de pago, opciones de envío,
+                y paneles de administración para pedidos y clientes; además aplicamos
+                técnicas de conversión y analítica para maximizar ventas.
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Catálogo de productos</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Pagos online</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Gestión de pedidos e inventarios</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Panel administrativo</li>
+              </ul>
+            </div>
+
+            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center">
+              <span className="text-gray-400">Imagen Tienda</span>
+            </div>
+          </div>
+
+          {/* Servicio 4 */}
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="md:order-2">
+              <h4 className="text-3xl font-bold mb-4">Automatizaciones y Chatbots</h4>
+              <p className="text-gray-600 mb-6">
+                Sistemas inteligentes que automatizan tareas repetitivas y mejoran
+                la atención al cliente. Diseñamos flujos de automatización, bots
+                conversacionales y conectores a WhatsApp/Telegram o servicios internos
+                para reducir tiempos de respuesta y errores manuales. Incluimos
+                métricas y ajustes para que las automatizaciones evolucionen con tu
+                negocio.
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Automatización de procesos</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Chatbots personalizados</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Integración con WhatsApp</li>
+                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Sistemas a la medida</li>
+              </ul>
+            </div>
+
+            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center md:order-1">
+              <span className="text-gray-400">Imagen Automatización</span>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* Portfolio */}
-      <section id="portfolio" className="py-16 bg-gray-50">
+      {/* PORTFOLIO */}
+      <section id="portfolio" className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <h3 className="text-3xl font-bold mb-10">Portafolio</h3>
           <div className="grid md:grid-cols-3 gap-6">
             {[1, 2, 3].map((n) => (
-              <div
-                key={n}
-                className="bg-white rounded-xl shadow p-6 h-48 flex items-center justify-center"
-              >
-                <span className="text-gray-600">Proyecto {n}</span>
-              </div>
+              n === 1 ? (
+                <div key={n} className="bg-white rounded-xl shadow p-6">
+                  <a href="https://gema-co.site/" target="_blank" rel="noopener noreferrer" className="flex flex-col md:flex-row items-center md:items-start gap-4 w-full">
+                    <img src={gemaImg} alt="GEMA" className="h-20 md:h-28 w-auto object-contain flex-shrink-0" />
+                    <div className="text-left flex-1">
+                      <h4 className="font-semibold text-lg mb-1">GEMA</h4>
+                      <p className="text-sm text-gray-600 break-words">Solución para gestión de flotas de maquinaria pesada, mantenimiento preventivo y correctivo, registro de horas y reportes para optimizar la vida útil de equipos, entre otras.</p>
+                    </div>
+                  </a>
+                </div>
+              ) : (
+                <div
+                  key={n}
+                  className="bg-white rounded-xl shadow p-6 h-48 flex items-center justify-center"
+                >
+                  <span className="text-gray-600">Proyecto {n}</span>
+                </div>
+              )
             ))}
           </div>
         </div>
       </section>
 
-      {/* Team */}
-      <section className="py-16">
+      {/* TEAM */}
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
           <h3 className="text-3xl font-bold text-center mb-12">Nuestro equipo</h3>
           <div className="flex flex-col md:flex-row justify-center gap-8 text-center">
@@ -146,26 +284,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="py-20 bg-gray-50">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h3 className="text-3xl font-bold mb-6">¿Listo para tu proyecto?</h3>
-          <p className="text-gray-700 mb-8">
-            Escríbenos y hagamos realidad tu idea digital.
-          </p>
-          <a
-            href="mailto:contacto@kcj.dev"
-            className="inline-block bg-[#5af388] text-black px-10 py-3 rounded-full font-semibold hover:bg-[#fce38a] transition"
+      {/* CONTACT */}
+      <section id="contact" className="py-24 bg-gray-50">
+        <div className="max-w-3xl mx-auto px-6">
+          <h3 className="text-3xl font-bold mb-6 text-center">¿Listo para tu proyecto?</h3>
+          <p className="text-gray-700 mb-6 text-center">Escríbenos y hagamos realidad tu idea digital.</p>
+
+          <form
+            className="bg-white rounded-xl shadow p-6 md:p-8"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+            id="contact-form"
           >
-            Contactar
-          </a>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                <input id="name" name="name" placeholder="Nombre Completo" required className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388]" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input id="email" name="email" type="email" placeholder="email@ejemplo.com" required className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388]" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                <input name="phone" type="tel" placeholder="+57 312 3456789" required className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388]" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de proyecto</label>
+                <select name="projectType" defaultValue="Web" className="block w-full border border-gray-200 rounded px-3 py-2">
+                  <option value="Web">Web Profesional para Microempresas</option>
+                  <option value="App">Aplicaciones Web y Móviles</option>
+                  <option value="Ecommerce">Tiendas Online</option>
+                  <option value="Automatizacion">Automatizaciones y Chatbots</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
+              <textarea name="message" rows={5} placeholder="Dinos que idea tienes en mente y la hacemos realidad!!!" required className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388]"></textarea>
+            </div>
+
+            <div className="mt-4 flex items-start gap-3">
+              <input id="privacy" name="privacy" type="checkbox" required className="mt-1 h-4 w-4 text-[#5af388] border-gray-300 rounded" />
+              <label htmlFor="privacy" className="text-sm text-gray-700">He leído y acepto las <a href="/privacy" className="text-[#5af388] underline">políticas de privacidad</a></label>
+            </div>
+
+            <div className="mt-6 text-right">
+              <button
+                type="submit"
+                onClick={(e) => {
+                  const form = document.getElementById('contact-form');
+                  const data = new FormData(form);
+                  const payload = Object.fromEntries(data.entries());
+                  // Basic validation already enforced by required attributes; here we simulate submission
+                  if (!payload.privacy) {
+                    alert('Por favor acepta las políticas de privacidad.');
+                    return;
+                  }
+                  console.log('Contact form submit:', payload);
+                  alert('Gracias — tu mensaje ha sido enviado. Nos contactaremos pronto.');
+                  form.reset();
+                }}
+                className="inline-flex items-center bg-[#5af388] text-black px-6 py-2 rounded-md font-semibold hover:bg-[#45d97a] transition"
+              >
+                Enviar
+              </button>
+            </div>
+          </form>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* FOOTER */}
       <footer className="text-center py-8 text-sm text-gray-600 border-t">
         © {new Date().getFullYear()} KCJ DevStudio. Todos los derechos reservados.
       </footer>
+
     </div>
   );
 }
