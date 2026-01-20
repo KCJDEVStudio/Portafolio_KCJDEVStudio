@@ -362,7 +362,28 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer className="text-center py-8 text-sm text-gray-600 border-t">
-        © {new Date().getFullYear()} KCJ DevStudio. Todos los derechos reservados.
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="flex items-center justify-center w-12 h-12 rounded-full" style={{ backgroundColor: '#1b3012' }}>
+            <img src="/logo_vertical.png" alt="KCJ logo" className="w-15 h-15 object-contain" />
+          </div>
+          <div className="text-left">
+            <div className="text-xl font-bold" style={{ color: '#5af388' }}>KCJ</div>
+            <div className="text-sm" style={{ color: '#000000' }}>DevStudio</div>
+          </div>
+        </div>
+
+        <div className="mt-2">
+          <a href="https://www.instagram.com/kcj__dev_studio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 font-medium" style={{ color: '#1b3012' }} aria-label="Instagram">
+            <span className="text-sm">Instagram</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <path d="M7 2C4.246 2 2 4.246 2 7v10c0 2.754 2.246 5 5 5h10c2.754 0 5-2.246 5-5V7c0-2.754-2.246-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10z"/>
+              <path d="M12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/>
+              <circle cx="18.5" cy="5.5" r="1.25" />
+            </svg>
+          </a>
+        </div>
+
+        <div>© {new Date().getFullYear()} KCJ DevStudio. Todos los derechos reservados.</div>
       </footer>
 
     </div>
