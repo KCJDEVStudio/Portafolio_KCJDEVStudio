@@ -20,21 +20,24 @@ export default function Home() {
   const team = [
     {
       name: "Cristian Morales",
-      role: "Co-fundador / Developer",
+      role: "Co-fundador / Full Stack Developer",
       image: crisImg,
+      portfolioLink: "https://github.com/ZilonZ",
       description:
         "Desarrollador Full Stack con enfoque en Frontend y experiencia de usuario. Especializado en React, diseño de interfaces modernas y maquetación responsive. Se encarga de transformar ideas en experiencias digitales claras, intuitivas y atractivas.",
     },
     {
       name: "Kevin Rey",
-      role: "Co-fundador / Developer",
+      role: "Co-fundador / Full Stack Developer",
       image: kevinImg,
+      portfolioLink: "https://github.com/kvinjr9",
       description: "Desarrollador Full Stack enfocado en Backend y arquitectura de software. Trabaja en la lógica del sistema, bases de datos, APIs y seguridad, asegurando que las aplicaciones sean escalables, estables y eficientes.",
     },
     {
       name: "Jonathan Morales",
-      role: "Co-fundador / Developer",
+      role: "Co-fundador / Full Stack Developer",
       image: jonathanImg,
+      portfolioLink: "https://github.com/jonmor-bot",
       description: "Desarrollador Full Stack con enfoque en diseño visual y comunicación digital. Encargado del diseño gráfico, identidad visual, imágenes y material publicitario, aportando coherencia estética y valor visual a cada proyecto.",
     },
   ];
@@ -345,6 +348,14 @@ export default function Home() {
                   <h4 className="text-2xl font-bold mb-2">{selectedMember.name}</h4>
                   <div className="text-sm text-gray-600 mb-4">{selectedMember.role}</div>
                   <p className="text-gray-700">{selectedMember.description}</p>
+                  <a
+                    href={selectedMember.portfolioLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-6 bg-[#5af388] text-black px-6 py-2 rounded-lg font-semibold hover:bg-[#45d97a] transition"
+                  >
+                    Ver portafolio
+                    </a>
                 </div>
               </div>
             </div>
