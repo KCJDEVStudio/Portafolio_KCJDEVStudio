@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import gemaImg from "../assets/image/Ejemplo Gema.png";
+import crisImg from "../assets/image/Cris.JPG";
+import kevinImg from "../assets/image/Kevin.jpg";
+import jonathanImg from "../assets/image/Jonathan.jpg";
 
 export default function Home() {
   const [atTop, setAtTop] = useState(true);
@@ -10,6 +13,38 @@ export default function Home() {
     };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const [selectedMember, setSelectedMember] = useState(null);
+
+  const team = [
+    {
+      name: "Cristian Morales",
+      role: "Co-fundador / Developer",
+      image: crisImg,
+      description:
+        "Desarrollador Full Stack con enfoque en Frontend y experiencia de usuario. Especializado en React, diseño de interfaces modernas y maquetación responsive. Se encarga de transformar ideas en experiencias digitales claras, intuitivas y atractivas.",
+    },
+    {
+      name: "Kevin Rey",
+      role: "Co-fundador / Developer",
+      image: kevinImg,
+      description: "Desarrollador Full Stack enfocado en Backend y arquitectura de software. Trabaja en la lógica del sistema, bases de datos, APIs y seguridad, asegurando que las aplicaciones sean escalables, estables y eficientes.",
+    },
+    {
+      name: "Jonathan Morales",
+      role: "Co-fundador / Developer",
+      image: jonathanImg,
+      description: "Desarrollador Full Stack con enfoque en diseño visual y comunicación digital. Encargado del diseño gráfico, identidad visual, imágenes y material publicitario, aportando coherencia estética y valor visual a cada proyecto.",
+    },
+  ];
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") setSelectedMember(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   
@@ -273,15 +308,48 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <h3 className="text-3xl font-bold text-center mb-12">Nuestro equipo</h3>
           <div className="flex flex-col md:flex-row justify-center gap-8 text-center">
-            {["Cristian Morales", "Kevin Rey", "Jonathan Morales"].map((name) => (
-              <div key={name} className="bg-white p-6 rounded-xl w-64 shadow">
-                <div className="w-20 h-20 bg-[#5af388] rounded-full mx-auto mb-4"></div>
-                <h4 className="font-semibold">{name}</h4>
-                <p className="text-sm text-gray-600">Co-fundador / Developer</p>
-              </div>
+            {team.map((member) => (
+              <button
+                key={member.name}
+                onClick={() => setSelectedMember(member)}
+                className="bg-white p-6 rounded-xl w-64 shadow text-left focus:outline-none"
+              >
+                <div className="mx-auto mb-4">
+                  {member.image ? (
+                    <img src={member.image} alt={member.name} className="w-20 h-20 rounded-full object-cover mx-auto" />
+                  ) : (
+                    <div className="w-20 h-20 bg-[#5af388] rounded-full mx-auto mb-0 flex items-center justify-center text-sm text-white">Próx.</div>
+                  )}
+                </div>
+                <h4 className="font-semibold">{member.name}</h4>
+                <p className="text-sm text-gray-600">{member.role}</p>
+              </button>
             ))}
           </div>
         </div>
+
+        {selectedMember && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/50" onClick={() => setSelectedMember(null)} />
+            <div className="relative bg-white rounded-xl shadow-lg max-w-xl w-full mx-4 p-6">
+              <button className="absolute top-3 right-3 text-gray-500" onClick={() => setSelectedMember(null)}>Cerrar</button>
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="flex-shrink-0">
+                  {selectedMember.image ? (
+                    <img src={selectedMember.image} alt={selectedMember.name} className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover" />
+                  ) : (
+                    <div className="w-40 h-40 md:w-56 md:h-56 bg-gray-100 rounded-full flex items-center justify-center text-gray-500">Imagen próximamente</div>
+                  )}
+                </div>
+                <div>
+                  <h4 className="text-2xl font-bold mb-2">{selectedMember.name}</h4>
+                  <div className="text-sm text-gray-600 mb-4">{selectedMember.role}</div>
+                  <p className="text-gray-700">{selectedMember.description}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* CONTACT */}
