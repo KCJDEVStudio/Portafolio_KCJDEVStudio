@@ -1,24 +1,93 @@
+/**
+ * @file Home.jsx - Página principal de KCJ DevStudio
+ * @description
+ * Componente que renderiza la página de inicio completa incluyendo:
+ * - Header sticky con navegación
+ * - Hero section con CTA
+ * - Sección Sobre nosotros
+ * - Servicios ofrecidos
+ * - Portafolio de proyectos
+ * - Equipo con modales interactivos
+ * - Formulario de contacto con validación
+ * - Footer
+ */
+
 import { useEffect, useState } from "react";
 import gemaImg from "../assets/image/Ejemplo Gema.png";
 import crisImg from "../assets/image/Cris.JPG";
 import kevinImg from "../assets/image/Kevin.jpg";
 import jonathanImg from "../assets/image/Jonathan.jpg";
 
+/**
+ * Componente Home - Página principal del sitio web
+ * 
+ * Estados gestionados:
+ * - atTop: boolean - Indica si el scroll está en la parte superior (para header styling)
+ * - selectedMember: object | null - Miembro del equipo seleccionado para mostrar modal
+ * - formStatus: object - Estado del formulario {type: 'success'|'error'|null, message: string}
+ * - isLoading: boolean - Indica si se está enviando el formulario
+ * 
+ * @returns {JSX.Element} Página principal con todas las secciones
+ */
 export default function Home() {
+  // ==================== ESTADO DEL HEADER ====================
+  /**
+   * Estado que controla el estilo del header
+   * Se usa para aplicar glassmorphism cuando el usuario hace scroll
+   */
   const [atTop, setAtTop] = useState(true);
 
+  /**
+   * useEffect: Detector de scroll para cambiar estilo del header
+   * 
+   * Functionality:
+   * - Añade listener al evento scroll
+   * - Actualiza atTop según posición del scroll (window.scrollY)
+   * - Limpia el listener cuando el componente se desmonta
+   * 
+   * Performance: Se ejecuta solo una vez al montar el componente
+   */
   useEffect(() => {
     const onScroll = () => {
       setAtTop(window.scrollY === 0);
     };
     window.addEventListener("scroll", onScroll);
+    // Cleanup: Remover listener para evitar memory leaks
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // ==================== ESTADO DEL EQUIPO Y FORMULARIO ====================
+  /**
+   * Miembro del equipo seleccionado actualmente
+   * Cuando no es null, muestra un modal con detalles del miembro
+   */
   const [selectedMember, setSelectedMember] = useState(null);
+
+  /**
+   * Estado del formulario de contacto
+   * - type: 'success' | 'error' | null - Tipo de mensaje a mostrar
+   * - message: string - Texto del mensaje
+   */
   const [formStatus, setFormStatus] = useState({ type: null, message: '' });
+
+  /**
+   * Indica si se está procesando el envío del formulario
+   * Se usa para deshabilitar inputs y botón, mostrar "Enviando..."
+   */
   const [isLoading, setIsLoading] = useState(false);
 
+  // ==================== DATOS DEL EQUIPO ====================
+  /**
+   * Array de objetos que contiene información del equipo de KCJ DevStudio
+   * Usado para renderizar tarjetas del equipo y modales
+   * 
+   * Propiedades de cada miembro:
+   * - name: string - Nombre completo
+   * - role: string - Puesto/rol en la empresa
+   * - image: string - Ruta de la imagen
+   * - portfolioLink: string - URL del portafolio/GitHub
+   * - description: string - Descripción profesional del miembro
+   */
   const team = [
     {
       name: "Cristian Morales",
@@ -44,6 +113,15 @@ export default function Home() {
     },
   ];
 
+  // ==================== CERRAR MODAL CON ESCAPE ====================
+  /**
+   * useEffect: Listener para cerrar modal al presionar ESC
+   * 
+   * Functionality:
+   * - Detecta evento keydown en el documento
+   * - Si la tecla es Escape, cierra el modal (selectedMember = null)
+   * - Proporciona mejor UX permitiendo cerrar modal con ESC
+   */
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape") setSelectedMember(null);
@@ -52,6 +130,31 @@ export default function Home() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // ==================== MANEJADOR DE ENVÍO DE FORMULARIO ====================
+  /**
+   * handleContactFormSubmit - Procesa el envío del formulario de contacto
+   * 
+   * Flujo:
+   * 1. Previene comportamiento por defecto del formulario
+   * 2. Limpia mensajes anteriores
+   * 3. Extrae datos del formulario usando FormData
+   * 4. Valida que el checkbox de privacidad esté marcado (privacyConsent)
+   * 5. Envía POST request al backend
+   * 6. Procesa respuesta y muestra mensaje de éxito/error
+   * 7. Limpia el formulario si es exitoso
+   * 
+   * @param {Event} e - Evento del formulario
+   * @returns {Promise<void>}
+   * 
+   * Validaciones cliente:
+   * - El checkbox de privacidad debe estar marcado (formData.get('privacy') === 'on')
+   * - Backend valida: nombre, email, teléfono, tipo de proyecto, mensaje
+   * 
+   * Errores manejados:
+   * - Respuesta del servidor no OK
+   * - Errores de conexión (backend no disponible)
+   * - Errores de red
+   */
   const handleContactFormSubmit = async (e) => {
     e.preventDefault();
     setFormStatus({ type: null, message: '' });
@@ -60,15 +163,20 @@ export default function Home() {
     try {
       const form = document.getElementById('contact-form');
       const formData = new FormData(form);
+      
+      // Construir payload con datos del formulario
       const payload = {
         name: formData.get('name'),
         email: formData.get('email'),
         phone: formData.get('phone'),
         projectType: formData.get('projectType'),
         message: formData.get('message'),
-        privacyConsent: formData.get('privacy') === 'on' // El checkbox cuando está marcado envía 'on'
+        // CRÍTICO: El checkbox cuando está marcado envía 'on', convertimos a boolean
+        // Backend SIEMPRE valida este campo - imposible de evadir
+        privacyConsent: formData.get('privacy') === 'on'
       };
       
+      // Realizar petición POST al backend
       const response = await fetch('http://localhost:5000/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -77,15 +185,20 @@ export default function Home() {
       
       const data = await response.json();
       
+      // Verificar si la respuesta fue exitosa
       if (response.ok && data.success) {
+        // Mostrar mensaje de éxito y limpiar formulario
         setFormStatus({ type: 'success', message: data.message || 'Mensaje enviado exitosamente. Nos contactaremos pronto.' });
         form.reset();
       } else {
+        // Mostrar error desde el servidor
         setFormStatus({ type: 'error', message: data.message || 'Error al enviar el mensaje' });
       }
     } catch (error) {
+      // Error de conexión (backend no disponible o problema de red)
       setFormStatus({ type: 'error', message: 'Error de conexión. Asegúrate que el backend esté ejecutándose en http://localhost:5000' });
     } finally {
+      // Siempre desactivar el estado de carga
       setIsLoading(false);
     }
   };
@@ -93,7 +206,14 @@ export default function Home() {
   return (
     <div className="min-h-screen font-sans bg-white text-gray-900">
 
-      {/* HEADER */}
+      {/* ===== HEADER: NAVEGACIÓN STICKY CON EFECTO GLASSMORPHISM ===== */}
+      {/* 
+        Header que se fija en la parte superior (fixed z-50)
+        Cambio dinámico de estilos según scroll:
+        - En la parte superior: fondo negro sólido (bg-black)
+        - Después de scroll: fondo semi-transparente con blur (bg-black/30 backdrop-blur-md)
+        Proporciona mejor UX al ver contenido debajo cuando haces scroll
+      */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           atTop ? "bg-black" : "bg-black/30 backdrop-blur-md shadow-lg"
@@ -106,6 +226,11 @@ export default function Home() {
             className="h-50 w-auto object-contain"
           />
 
+          {/* 
+            Navegación principal
+            Enlaces a secciones del mismo componente usando #id
+            Parámetros hash (#) permiten scroll suave a secciones
+          */}
           <nav className="space-x-6 text-sm font-medium text-white">
             <a href="#about" className="hover:text-[#5af388] transition">Nosotros</a>
             <a href="#services" className="hover:text-[#5af388] transition">Servicios</a>
@@ -115,10 +240,16 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ESPACIADOR HEADER */}
+      {/* Espaciador para compensar el header fixed */}
       <div className="h-20" />
 
-      {/* HERO */}
+      {/* ===== HERO SECTION: PRESENTACIÓN PRINCIPAL ===== */}
+      {/* 
+        Sección de introducción con propuesta de valor
+        - Título destacado con color de marca (#5af388)
+        - Descripción clara de servicios
+        - CTA (Call-To-Action) que navega a formulario de contacto
+      */}
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
@@ -137,8 +268,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ABOUT */}
-      <section id="about" className="py-20 bg-gray-50">
+      {/* ===== ABOUT SECTION: INFORMACIÓN DE LA EMPRESA ===== */}
+      {/* 
+        Sección "Sobre Nosotros"
+        id="about" permite navegación desde header
+        Contiene descripción de la empresa y valores clave
+      */}
+      <section id="about" className="py-24">
         <div className="max-w-5xl mx-auto px-6">
           <div className="bg-white rounded-2xl shadow-md p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -201,7 +337,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* ===== SERVICES SECTION: SERVICIOS OFRECIDOS ===== */}
       <section id="services" className="py-24">
         <div className="max-w-7xl mx-auto px-6">
 
@@ -401,36 +537,86 @@ export default function Home() {
         )}
       </section>
 
-      {/* CONTACT */}
+      {/* ===== CONTACT SECTION: FORMULARIO DE CONTACTO ===== */}
+      {/* 
+        Sección de contacto con formulario completo
+        id="contact" permite navegación desde header
+        Integración completa con backend:
+        - Validación cliente (HTML5 + JavaScript)
+        - Validación servidor (backend en /api/contact)
+        - Manejo de privacidad (GDPR - Ley 1581 de 2012)
+      */}
       <section id="contact" className="py-24 bg-gray-50">
         <div className="max-w-3xl mx-auto px-6">
           <h3 className="text-3xl font-bold mb-6 text-center">¿Listo para tu proyecto?</h3>
           <p className="text-gray-700 mb-6 text-center">Escríbenos y hagamos realidad tu idea digital.</p>
 
+          {/* 
+            Formulario de contacto
+            id="contact-form" permite acceso desde JavaScript
+            onSubmit={handleContactFormSubmit} procesa envío de forma asíncrona
+            
+            Validaciones:
+            1. Cliente: HTML5 required + validación de email/teléfono
+            2. Servidor: Backend valida todos los campos + privacyConsent
+            3. Seguridad: Backend siempre valida privacyConsent (imposible evadir)
+          */}
           <form
             className="bg-white rounded-xl shadow p-6 md:p-8"
             onSubmit={handleContactFormSubmit}
             id="contact-form"
           >
+            {/* Grid 2 columnas en desktop, 1 en móvil */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Campo: Nombre */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
-                <input id="name" name="name" placeholder="Nombre Completo" required disabled={isLoading} className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" />
+                <input 
+                  id="name" 
+                  name="name" 
+                  placeholder="Nombre Completo" 
+                  required 
+                  disabled={isLoading} 
+                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" 
+                />
               </div>
 
+              {/* Campo: Email */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input id="email" name="email" type="email" placeholder="email@ejemplo.com" required disabled={isLoading} className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" />
+                <input 
+                  id="email" 
+                  name="email" 
+                  type="email" 
+                  placeholder="email@ejemplo.com" 
+                  required 
+                  disabled={isLoading} 
+                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" 
+                />
               </div>
 
+              {/* Campo: Teléfono */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
-                <input name="phone" type="tel" placeholder="+57 312 3456789" required disabled={isLoading} className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" />
+                <input 
+                  name="phone" 
+                  type="tel" 
+                  placeholder="+57 312 3456789" 
+                  required 
+                  disabled={isLoading} 
+                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" 
+                />
               </div>
 
+              {/* Campo: Tipo de proyecto */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de proyecto</label>
-                <select name="projectType" defaultValue="Web" disabled={isLoading} className="block w-full border border-gray-200 rounded px-3 py-2 disabled:bg-gray-100 disabled:cursor-not-allowed">
+                <select 
+                  name="projectType" 
+                  defaultValue="Web" 
+                  disabled={isLoading} 
+                  className="block w-full border border-gray-200 rounded px-3 py-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                >
                   <option value="Web">Web Profesional para Microempresas</option>
                   <option value="App">Aplicaciones Web y Móviles</option>
                   <option value="Ecommerce">Tiendas Online</option>
@@ -440,16 +626,56 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Campo: Mensaje */}
             <div className="mt-4">
               <label className="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
-              <textarea name="message" rows={5} placeholder="Dinos que idea tienes en mente y la hacemos realidad!!!" required disabled={isLoading} className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed"></textarea>
+              <textarea 
+                name="message" 
+                rows={5} 
+                placeholder="Dinos que idea tienes en mente y la hacemos realidad!!!" 
+                required 
+                disabled={isLoading} 
+                className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed"
+              />
             </div>
 
+            {/* 
+              Campo: Checkbox de Privacidad (CRÍTICO - GDPR)
+              IMPORTANTE:
+              - required: El usuario DEBE marcar este checkbox para enviar
+              - Cuando está marcado, formData.get('privacy') === 'on'
+              - Backend también valida este campo (imposible evadir por API)
+              - Link abre políticas en nueva pestaña sin interrumpir el formulario
+              - Cumple con Ley 1581 de 2012 (Colombia)
+            */}
             <div className="mt-4 flex items-start gap-3">
-              <input id="privacy" name="privacy" type="checkbox" required disabled={isLoading} className="mt-1 h-4 w-4 text-[#5af388] border-gray-300 rounded disabled:cursor-not-allowed cursor-pointer" />
-              <label htmlFor="privacy" className="text-sm text-gray-700 cursor-pointer">He leído y acepto las <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-[#5af388] underline hover:text-[#45d97a] transition">políticas de privacidad</a></label>
+              <input 
+                id="privacy" 
+                name="privacy" 
+                type="checkbox" 
+                required 
+                disabled={isLoading} 
+                className="mt-1 h-4 w-4 text-[#5af388] border-gray-300 rounded disabled:cursor-not-allowed cursor-pointer" 
+              />
+              <label htmlFor="privacy" className="text-sm text-gray-700 cursor-pointer">
+                He leído y acepto las{" "}
+                <a 
+                  href="/privacy" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[#5af388] underline hover:text-[#45d97a] transition"
+                >
+                  políticas de privacidad
+                </a>
+              </label>
             </div>
 
+            {/* 
+              Mensaje de estado del formulario
+              - Tipo 'success': Mensaje de envío exitoso (verde)
+              - Tipo 'error': Mensaje de error (rojo)
+              - Desaparece cuando el usuario intenta enviar de nuevo
+            */}
             {formStatus.message && (
               <div className={`mt-4 p-4 rounded-md ${
                 formStatus.type === 'success' 
@@ -460,6 +686,7 @@ export default function Home() {
               </div>
             )}
 
+            {/* Botón de envío */}
             <div className="mt-6 text-right">
               <button
                 type="submit"

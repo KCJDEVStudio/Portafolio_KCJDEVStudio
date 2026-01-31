@@ -1,8 +1,46 @@
+/**
+ * @file Privacy.jsx - Página de Políticas de Privacidad
+ * @description
+ * Componente que renderiza la página completa de políticas de privacidad
+ * cumpliendo con la Ley 1581 de 2012 (Colombia) y su Decreto 1377 de 2013.
+ * 
+ * Incluye:
+ * - 12 secciones legales detalladas
+ * - Derechos ARCO (Acceso, Rectificación, Cancelación, Oposición)
+ * - Información sobre tratamiento de datos personales
+ * - Contacto para solicitudes de privacidad
+ * - Header y navegación consistentes con el sitio
+ * 
+ * Cumplimiento legal:
+ * - Ley 1581 de 2012: Protección de datos personales
+ * - Decreto 1377 de 2013: Regulación y procedimientos
+ * - Resolución 60021 de 2018 (SIC): Guías específicas
+ */
+
 import { useEffect, useState } from "react";
 
+/**
+ * Componente Privacy - Página de políticas de privacidad
+ * 
+ * Estados:
+ * - atTop: boolean - Controla estilo del header (scroll detection)
+ * 
+ * @returns {JSX.Element} Página completa con políticas de privacidad
+ */
 export default function Privacy() {
+  /**
+   * Estado que detecta si el usuario está en la parte superior de la página
+   * Se usa para cambiar el estilo del header (similar a Home.jsx)
+   */
   const [atTop, setAtTop] = useState(true);
 
+  /**
+   * useEffect: Detector de scroll para cambiar estilo del header
+   * 
+   * Cuando scrollY > 0:
+   * - Header obtiene fondo semi-transparente con blur (glassmorphism)
+   * - Proporciona mejor UX al ver contenido detrás del header
+   */
   useEffect(() => {
     const onScroll = () => {
       setAtTop(window.scrollY === 0);
@@ -11,15 +49,21 @@ export default function Privacy() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+
   return (
     <div className="min-h-screen font-sans bg-white text-gray-900">
-      {/* HEADER */}
+      {/* ===== HEADER CON NAVEGACIÓN ===== */}
+      {/* 
+        Header sticky con efecto glassmorphism
+        Navega de vuelta al inicio (/), permitiendo a usuarios regresar fácilmente
+      */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           atTop ? "bg-black" : "bg-black/30 backdrop-blur-md shadow-lg"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          {/* Logo clickeable - Navega a inicio */}
           <a href="/">
             <img
               src="/logo_horizontal.png"
@@ -28,6 +72,7 @@ export default function Privacy() {
             />
           </a>
 
+          {/* Navegación */}
           <nav className="space-x-6 text-sm font-medium text-white">
             <a href="/" className="hover:text-[#5af388] transition">
               Inicio
@@ -39,14 +84,14 @@ export default function Privacy() {
         </div>
       </header>
 
-      {/* ESPACIADOR HEADER */}
+      {/* Espaciador para compensar header fixed */}
       <div className="h-20" />
 
-      {/* CONTENT */}
+      {/* ===== CONTENIDO PRINCIPAL: POLÍTICAS DE PRIVACIDAD ===== */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-6">
           <div className="bg-white rounded-2xl shadow-md p-8 md:p-12">
-            {/* Title */}
+            {/* Título y metadatos */}
             <div className="mb-12 text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 Políticas de Privacidad
@@ -54,12 +99,13 @@ export default function Privacy() {
               <p className="text-gray-600">
                 Información sobre cómo tratamos tus datos personales
               </p>
+              {/* Fecha de última actualización dinámica */}
               <p className="text-sm text-gray-500 mt-4">
                 Última actualización: {new Date().toLocaleDateString('es-CO', {year: 'numeric', month: 'long', day: 'numeric'})}
               </p>
             </div>
 
-            {/* Content */}
+            {/* Contenido: 12 secciones legales */}
             <div className="prose prose-sm max-w-none space-y-8 text-gray-700">
               {/* 1. Responsable del Tratamiento */}
               <section>
