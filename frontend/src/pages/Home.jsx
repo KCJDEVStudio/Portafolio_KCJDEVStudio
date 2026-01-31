@@ -16,6 +16,8 @@ export default function Home() {
   }, []);
 
   const [selectedMember, setSelectedMember] = useState(null);
+  const [formStatus, setFormStatus] = useState({ type: null, message: '' });
+  const [isLoading, setIsLoading] = useState(false);
 
   const team = [
     {
@@ -50,7 +52,43 @@ export default function Home() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  
+  const handleContactFormSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus({ type: null, message: '' });
+    setIsLoading(true);
+    
+    try {
+      const form = document.getElementById('contact-form');
+      const formData = new FormData(form);
+      const payload = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        projectType: formData.get('projectType'),
+        message: formData.get('message'),
+        privacyConsent: formData.get('privacy') === 'on' // El checkbox cuando está marcado envía 'on'
+      };
+      
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        setFormStatus({ type: 'success', message: data.message || 'Mensaje enviado exitosamente. Nos contactaremos pronto.' });
+        form.reset();
+      } else {
+        setFormStatus({ type: 'error', message: data.message || 'Error al enviar el mensaje' });
+      }
+    } catch (error) {
+      setFormStatus({ type: 'error', message: 'Error de conexión. Asegúrate que el backend esté ejecutándose en http://localhost:5000' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen font-sans bg-white text-gray-900">
@@ -371,30 +409,28 @@ export default function Home() {
 
           <form
             className="bg-white rounded-xl shadow p-6 md:p-8"
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
+            onSubmit={handleContactFormSubmit}
             id="contact-form"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
-                <input id="name" name="name" placeholder="Nombre Completo" required className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388]" />
+                <input id="name" name="name" placeholder="Nombre Completo" required disabled={isLoading} className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input id="email" name="email" type="email" placeholder="email@ejemplo.com" required className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388]" />
+                <input id="email" name="email" type="email" placeholder="email@ejemplo.com" required disabled={isLoading} className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
-                <input name="phone" type="tel" placeholder="+57 312 3456789" required className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388]" />
+                <input name="phone" type="tel" placeholder="+57 312 3456789" required disabled={isLoading} className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de proyecto</label>
-                <select name="projectType" defaultValue="Web" className="block w-full border border-gray-200 rounded px-3 py-2">
+                <select name="projectType" defaultValue="Web" disabled={isLoading} className="block w-full border border-gray-200 rounded px-3 py-2 disabled:bg-gray-100 disabled:cursor-not-allowed">
                   <option value="Web">Web Profesional para Microempresas</option>
                   <option value="App">Aplicaciones Web y Móviles</option>
                   <option value="Ecommerce">Tiendas Online</option>
@@ -406,33 +442,31 @@ export default function Home() {
 
             <div className="mt-4">
               <label className="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
-              <textarea name="message" rows={5} placeholder="Dinos que idea tienes en mente y la hacemos realidad!!!" required className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388]"></textarea>
+              <textarea name="message" rows={5} placeholder="Dinos que idea tienes en mente y la hacemos realidad!!!" required disabled={isLoading} className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed"></textarea>
             </div>
 
             <div className="mt-4 flex items-start gap-3">
-              <input id="privacy" name="privacy" type="checkbox" required className="mt-1 h-4 w-4 text-[#5af388] border-gray-300 rounded" />
-              <label htmlFor="privacy" className="text-sm text-gray-700">He leído y acepto las <a href="/privacy" className="text-[#5af388] underline">políticas de privacidad</a></label>
+              <input id="privacy" name="privacy" type="checkbox" required disabled={isLoading} className="mt-1 h-4 w-4 text-[#5af388] border-gray-300 rounded disabled:cursor-not-allowed cursor-pointer" />
+              <label htmlFor="privacy" className="text-sm text-gray-700 cursor-pointer">He leído y acepto las <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-[#5af388] underline hover:text-[#45d97a] transition">políticas de privacidad</a></label>
             </div>
+
+            {formStatus.message && (
+              <div className={`mt-4 p-4 rounded-md ${
+                formStatus.type === 'success' 
+                  ? 'bg-green-100 text-green-800 border border-green-300' 
+                  : 'bg-red-100 text-red-800 border border-red-300'
+              }`}>
+                {formStatus.message}
+              </div>
+            )}
 
             <div className="mt-6 text-right">
               <button
                 type="submit"
-                onClick={(e) => {
-                  const form = document.getElementById('contact-form');
-                  const data = new FormData(form);
-                  const payload = Object.fromEntries(data.entries());
-                  // Basic validation already enforced by required attributes; here we simulate submission
-                  if (!payload.privacy) {
-                    alert('Por favor acepta las políticas de privacidad.');
-                    return;
-                  }
-                  console.log('Contact form submit:', payload);
-                  alert('Gracias — tu mensaje ha sido enviado. Nos contactaremos pronto.');
-                  form.reset();
-                }}
-                className="inline-flex items-center bg-[#5af388] text-black px-6 py-2 rounded-md font-semibold hover:bg-[#45d97a] transition"
+                disabled={isLoading}
+                className="inline-flex items-center bg-[#5af388] text-black px-6 py-2 rounded-md font-semibold hover:bg-[#45d97a] transition disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
-                Enviar
+                {isLoading ? 'Enviando...' : 'Enviar'}
               </button>
             </div>
           </form>

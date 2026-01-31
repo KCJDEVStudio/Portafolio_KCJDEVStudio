@@ -1,0 +1,79 @@
+import nodemailer from 'nodemailer';
+
+const projectTypeMap = {
+  'Web': 'Web Profesional para Microempresas',
+  'App': 'Aplicaciones Web y Móviles',
+  'Ecommerce': 'Tiendas Online',
+  'Automatizacion': 'Automatizaciones y Chatbots',
+  'Otro': 'Otro'
+};
+
+export const sendEmail = async (contactData) => {
+  const { name, email, phone, projectType, message } = contactData;
+
+  // Crear transporter aquí para que cargue las variables de entorno correctamente
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASSWORD
+    }
+  });
+
+  const htmlContent = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f5f5f5; padding: 20px;">
+      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        
+        <h2 style="color: #1b3012; margin-bottom: 30px; border-bottom: 3px solid #5af388; padding-bottom: 15px;">
+          🎉 Nuevo contacto desde KCJ DevStudio
+        </h2>
+
+        <div style="margin-bottom: 20px;">
+          <h3 style="color: #333; margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; color: #666;">Información del contacto</h3>
+          
+          <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #5af388; margin-bottom: 15px;">
+            <p style="margin: 8px 0;"><strong>Nombre:</strong> ${name}</p>
+            <p style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+            <p style="margin: 8px 0;"><strong>Teléfono:</strong> ${phone}</p>
+            <p style="margin: 8px 0;"><strong>Tipo de proyecto:</strong> ${projectTypeMap[projectType] || projectType}</p>
+          </div>
+
+          <h3 style="color: #333; margin: 20px 0 10px 0; font-size: 14px; text-transform: uppercase; color: #666;">Mensaje</h3>
+          <div style="background: #fafafa; padding: 15px; border-radius: 5px; border-left: 4px solid #5af388; line-height: 1.6; color: #333;">
+            ${message.replace(/\n/g, '<br>')}
+          </div>
+        </div>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #666;">
+          <p style="margin: 0;">Este mensaje fue enviado desde el formulario de contacto de KCJ DevStudio</p>
+          <p style="margin: 5px 0 0 0;">Fecha: ${new Date().toLocaleString('es-CO')}</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+          <a href="mailto:${email}" style="display: inline-block; background: #5af388; color: black; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            Responder
+          </a>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 20px; font-size: 11px; color: #999;">
+        <p>© 2026 KCJ DevStudio. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  `;
+
+  try {
+    await transporter.sendMail({
+      from: `"KCJ DevStudio" <${process.env.GMAIL_USER}>`,
+      to: process.env.RECIPIENT_EMAIL,
+      replyTo: email,
+      subject: 'Nuevo contacto desde KCJ DevStudio',
+      html: htmlContent
+    });
+
+    console.log(`✅ Email enviado desde: ${email}`);
+  } catch (error) {
+    console.error('❌ Error al enviar email:', error);
+    throw error;
+  }
+};
