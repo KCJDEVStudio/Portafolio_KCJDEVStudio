@@ -121,28 +121,28 @@ export default function Home() {
                 </p>
                 <ul className="grid sm:grid-cols-2 gap-3 mt-4 text-gray-700">
                   <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#5af388] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg className="w-5 h-5 text-[#5af388] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
                       <div className="font-semibold">Diseño centrado en el usuario</div>
                       <div className="text-sm text-gray-600">Interfaces claras y usables que facilitan la conversión.</div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#5af388] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg className="w-5 h-5 text-[#5af388] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
                       <div className="font-semibold">Performance y SEO</div>
                       <div className="text-sm text-gray-600">Optimización de velocidad y estructura para mejor visibilidad en buscadores.</div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#5af388] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg className="w-5 h-5 text-[#5af388] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
                       <div className="font-semibold">Integraciones seguras</div>
                       <div className="text-sm text-gray-600">Conexiones fiables con pagos, CRMs y APIs externas.</div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#5af388] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg className="w-5 h-5 text-[#5af388] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <div>
                       <div className="font-semibold">Soporte y evolución</div>
                       <div className="text-sm text-gray-600">Mantenimiento y mejoras continuas para que tu producto crezca seguro.</div>
@@ -151,7 +151,7 @@ export default function Home() {
                 </ul>
               </div>
 
-              <div className="bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm">
+              <div className="bg-linear-to-br from-white to-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm">
                 <div className="h-44 rounded-md flex items-center justify-center mb-4" style={{ backgroundColor: '#1b3012' }}>
                   <img src="/logo_horizontal.png" alt="KCJ logo" className="max-h-28 md:max-h-75 w-auto object-contain mx-auto" />
                 </div>
@@ -195,8 +195,8 @@ export default function Home() {
               </ul>
             </div>
 
-            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center">
-              <span className="text-gray-400">Imagen Web</span>
+            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden">
+              <img src="/Img_Web.png" alt="Web Profesional" className="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -220,8 +220,8 @@ export default function Home() {
               </ul>
             </div>
 
-            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center md:order-1">
-              <span className="text-gray-400">Imagen App</span>
+            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden">
+              <img src="/Img_Movil.png" alt="Web Profesional" className="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -244,8 +244,8 @@ export default function Home() {
               </ul>
             </div>
 
-            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center">
-              <span className="text-gray-400">Imagen Tienda</span>
+            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden">
+              <img src="/Img_Ecommerce.png" alt="Web Profesional" className="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -269,8 +269,8 @@ export default function Home() {
               </ul>
             </div>
 
-            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center md:order-1">
-              <span className="text-gray-400">Imagen Automatización</span>
+            <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden">
+              <img src="/Img_Ia.png" alt="Web Profesional" className="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -286,10 +286,10 @@ export default function Home() {
               n === 1 ? (
                 <div key={n} className="bg-white rounded-xl shadow p-6">
                   <a href="https://gema-co.site/" target="_blank" rel="noopener noreferrer" className="flex flex-col md:flex-row items-center md:items-start gap-4 w-full">
-                    <img src={gemaImg} alt="GEMA" className="h-20 md:h-28 w-auto object-contain flex-shrink-0" />
+                    <img src={gemaImg} alt="GEMA" className="h-20 md:h-28 w-auto object-contain shrink-0" />
                     <div className="text-left flex-1">
                       <h4 className="font-semibold text-lg mb-1">GEMA</h4>
-                      <p className="text-sm text-gray-600 break-words">Solución para gestión de flotas de maquinaria pesada, mantenimiento preventivo y correctivo, registro de horas y reportes para optimizar la vida útil de equipos, entre otras.</p>
+                      <p className="text-sm text-gray-600 wrap-break-word">Solución para gestión de flotas de maquinaria pesada, mantenimiento preventivo y correctivo, registro de horas y reportes para optimizar la vida útil de equipos, entre otras.</p>
                     </div>
                   </a>
                 </div>
@@ -337,7 +337,7 @@ export default function Home() {
             <div className="relative bg-white rounded-xl shadow-lg max-w-xl w-full mx-4 p-6">
               <button className="absolute top-3 right-3 text-gray-500" onClick={() => setSelectedMember(null)}>Cerrar</button>
               <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   {selectedMember.image ? (
                     <img src={selectedMember.image} alt={selectedMember.name} className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover" />
                   ) : (
