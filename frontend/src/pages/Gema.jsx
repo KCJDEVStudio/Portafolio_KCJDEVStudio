@@ -1,37 +1,28 @@
 /**
- * @file Natbot.jsx - Página de detalles del proyecto Natbot
+ * @file Gema.jsx - Página de detalles del proyecto GEMA
  * @description
- * Componente que renderiza la página completa del proyecto Natbot
+ * Componente que renderiza la página completa del proyecto GEMA
  * Incluye: descripción general, funcionalidades, tecnologías,
  * caso de uso en producción, información del proyecto y galería
  * 
- * ===== CAMBIOS REALIZADOS (Febrero 1, 2026) =====
- * NUEVO ARCHIVO CREADO COMPLETAMENTE
- * - Página dedicada al proyecto Natbot con todas las secciones
- * - Header responsive con menú hamburguesa para móviles
- * - Importación de Logo_natbot.PNG para mostrar branding real
- * - Contenido profesional orientado a empresas
- * - Integración con el portafolio de Home.jsx
- * - Ruta: /project/natbot (agregada en AppRouter.jsx)
+ * ===== PROYECTO GEMA =====
+ * GEMA es una solución empresarial para gestión de flotas de maquinaria pesada
+ * - Gestión de flotas completa
+ * - Mantenimiento preventivo y correctivo
+ * - Registro de horas de operación
+ * - Generación de reportes avanzados
+ * - Optimización de recursos
+ * - En producción con cliente real: Servimacons
  */
 
 import { useEffect, useState } from "react";
-import natbotImg from "../assets/image/Logo_natbot.png";
+import gemaImg from "../assets/image/Ejemplo Gema.png";
 
-export default function Natbot() {
+export default function Gema() {
   const [atTop, setAtTop] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  {/* ===== DETECTOR DE SCROLL [ACTUALIZADO - 01/02/2026] ===== */}
-  {/* 
-    useEffect: Detector de scroll para cambiar estilo del header
-    - Añade listener al evento scroll
-    - Actualiza atTop según posición del scroll (window.scrollY)
-    - Limpia el listener cuando el componente se desmonta
-    - Se ejecuta solo una vez al montar el componente
-    - Performance optimizado para no afectar renderizado
-  */}
-  // Detector de scroll para cambiar estilo del header
+  {/* ===== DETECTOR DE SCROLL ===== */}
   useEffect(() => {
     const onScroll = () => {
       setAtTop(window.scrollY === 0);
@@ -42,15 +33,7 @@ export default function Natbot() {
 
   return (
     <div className="min-h-screen font-sans bg-white text-gray-900">
-      {/* ===== HEADER [ACTUALIZADO - 01/02/2026] ===== */}
-      {/* 
-        Header sticky con efectos visuales
-        - fixed: Se mantiene en la parte superior al hacer scroll
-        - z-50: Por encima de todo contenido
-        - Glassmorphism: bg-black/30 backdrop-blur-md cuando hay scroll
-        - Incluye navegación responsive (desktop/mobile)
-        - Logo de KCJ DevStudio con enlace a inicio...
-      */}
+      {/* ===== HEADER ===== */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           atTop ? "bg-black" : "bg-black/30 backdrop-blur-md shadow-lg"
@@ -107,30 +90,38 @@ export default function Natbot() {
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             {/* Logo del proyecto */}
             <div className="shrink-0">
-              <img src={natbotImg} alt="Natbot" loading="lazy" className="w-32 h-32 md:w-48 md:h-48 object-contain shadow-lg" />
+              <img src={gemaImg} alt="GEMA" loading="lazy" className="w-32 h-32 md:w-48 md:h-48 object-contain shadow-lg" />
             </div>
 
             {/* Información principal */}
             <div>
               <div className="inline-block bg-[#5af388]/20 text-[#5af388] px-4 py-1 rounded-full text-sm font-semibold mb-4">
-                Automatización
+                Gestión Industrial
               </div>
               <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-                Natbot
+                GEMA
                 <span className="block text-[#5af388] text-3xl md:text-4xl">
-                  Automatización Inteligente en WhatsApp
+                  Gestor Especializado en Maquinaria Amarilla
                 </span>
               </h1>
               <p className="text-lg text-gray-300 mb-6">
-                Asistente digital 24/7 que automatiza la atención al cliente y optimiza procesos internos mediante WhatsApp.
+                Plataforma integral para gestionar flotas de maquinaria pesada, optimizar mantenimiento y maximizar la vida útil de equipos.
               </p>
               <div className="flex flex-wrap gap-3">
                 <div className="inline-block bg-[#5af388] text-black px-4 py-2 rounded-lg font-semibold">
                   ✓ Implementado y en funcionamiento
                 </div>
                 <div className="inline-block bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold">
-                  WhatsApp Business
+                  Gestión de Flotas
                 </div>
+                <a
+                  href="https://www.gema-co.site/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-[#5af388] text-black px-6 py-2 rounded-lg font-semibold hover:bg-[#45d97a] transition"
+                >
+                  Ir a GEMA
+                </a>
               </div>
             </div>
           </div>
@@ -141,12 +132,12 @@ export default function Natbot() {
       <section className="py-16 md:py-24">
         <div className="max-w-5xl mx-auto px-6">
           <div className="bg-white rounded-2xl shadow-md p-8 md:p-12 border border-gray-200">
-            <h2 className="text-3xl font-bold mb-6">¿Qué es Natbot?</h2>
+            <h2 className="text-3xl font-bold mb-6">¿Qué es GEMA?</h2>
             <p className="text-lg text-gray-700 leading-relaxed mb-6">
-              Natbot es un asistente digital inteligente que funciona a través de WhatsApp, automatizando la atención al cliente 24/7 para empresas. Actúa como una secretaria virtual disponible en cualquier momento, respondiendo consultas, proporcionando información y realizando tareas operativas sin necesidad de intervención manual.
+              GEMA es una plataforma empresarial integral diseñada específicamente para la gestión profesional de flotas de maquinaria pesada. Proporciona control centralizado sobre equipos, mantenimiento programado, registro de operaciones y generación de reportes detallados para optimizar la eficiencia operativa y prolongar la vida útil de los activos.
             </p>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Con Natbot, las empresas pueden transformar la forma en que atienden a sus clientes: respuestas inmediatas, disponibilidad continua, y automatización de procesos que generan valor sin incrementar costos operacionales.
+              Con GEMA, las empresas industriales transforman la gestión de sus flotas: desde el monitoreo en tiempo real del estado de equipos hasta la planificación predictiva del mantenimiento, todo integrado en una única plataforma web segura, escalable y diseñada para la toma de decisiones estratégicas en operaciones complejas.
             </p>
           </div>
         </div>
@@ -159,24 +150,24 @@ export default function Natbot() {
           <div className="grid md:grid-cols-2 gap-8">
             {[
               {
-                icon: "⚡",
-                title: "Respuestas Inmediatas",
-                desc: "Mensajes automáticos 24/7 que resuelven inquietudes sin tiempos de espera",
+                icon: "🏭",
+                title: "Control Total de Flotas",
+                desc: "Gestiona múltiples equipos desde una sola plataforma con visibilidad completa de estados y ubicaciones",
               },
               {
-                icon: "👥",
-                title: "Reducción de Carga Operativa",
-                desc: "Automatiza procesos repetitivos, liberando al equipo para tareas estratégicas",
+                icon: "🔧",
+                title: "Mantenimiento Optimizado",
+                desc: "Planifica mantenimiento preventivo y correctivo para reducir paros inesperados y costos de reparación",
               },
               {
-                icon: "😊",
-                title: "Mejora en Experiencia del Cliente",
-                desc: "Atención rápida, consistente y disponible en el canal preferido del usuario",
+                icon: "⏱️",
+                title: "Registro de Operaciones",
+                desc: "Controla horas de operación, productividad y asignación de recursos en tiempo real",
               },
               {
-                icon: "📈",
-                title: "Escalabilidad Sin Costos",
-                desc: "Atiende múltiples conversaciones simultáneamente sin incremento de personal",
+                icon: "📊",
+                title: "Reportes Avanzados",
+                desc: "Genera análisis detallados sobre rendimiento, costos y proyecciones para mejor toma de decisiones",
               },
             ].map((benefit, idx) => (
               <div key={idx} className="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
@@ -196,14 +187,14 @@ export default function Natbot() {
           <div className="bg-linear-to-br from-[#5af388]/5 to-[#1b3012]/5 rounded-2xl border border-[#5af388]/20 p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-6">
               {[
-                "Respuestas automáticas personalizadas según contexto del negocio",
-                "Atención al cliente 24/7 por WhatsApp sin tiempos de espera",
-                "Envío automático de información, servicios, precios y catálogos",
-                "Agendamiento y gestión de citas de forma autónoma",
-                "Envío y recepción de correos electrónicos integrados",
-                "Automatización de procesos internos y flujos de trabajo",
-                "Clasificación y enrutamiento de conversaciones según prioridad",
-                "Sistema escalable y completamente personalizable según necesidades",
+                "Inventario centralizado de maquinaria pesada con especificaciones técnicas",
+                "Sistema de mantenimiento preventivo con alertas automáticas de vencimiento",
+                "Registro y seguimiento de mantenimiento correctivo con historial completo",
+                "Control preciso de horas de operación y jornadas de trabajo",
+                "Asignación de equipos a proyectos y operadores con trazabilidad",
+                "Generación automática de reportes por período, equipo o proyecto",
+                "Dashboard ejecutivo con métricas de disponibilidad y rendimiento",
+                "Sistema de alertas inteligentes para paros prolongados o anomalías",
               ].map((feature, idx) => (
                 <div key={idx} className="flex gap-4">
                   <div className="text-[#5af388] text-2xl shrink-0 pt-1">✓</div>
@@ -222,28 +213,28 @@ export default function Natbot() {
           <div className="grid md:grid-cols-2 gap-8">
             {[
               {
-                name: "n8n",
-                desc: "Plataforma de automatización sin código para diseñar flujos complejos",
+                name: "Frontend Moderno",
+                desc: "Interfaz responsiva construida con React y Tailwind CSS para experiencia fluida en cualquier dispositivo",
               },
               {
-                name: "API de WhatsApp Business",
-                desc: "Integración oficial con el servicio de Meta para WhatsApp",
+                name: "Backend Escalable",
+                desc: "Servidor robusto con arquitectura modular para manejar múltiples flotas y datos complejos",
               },
               {
-                name: "API de Facebook",
-                desc: "Conectividad con ecosistema extendido de Meta",
+                name: "Base de Datos",
+                desc: "Sistema de almacenamiento relacional para integridad de datos y consultas de alto rendimiento",
               },
               {
-                name: "API de Gmail",
-                desc: "Gestión automática de correos electrónicos integrada",
+                name: "API REST",
+                desc: "Interfaz programática para integraciones externas con sistemas ERP y herramientas de negocio",
               },
               {
-                name: "Integraciones API Externas",
-                desc: "Conexión flexible con múltiples servicios según necesidades",
+                name: "Autenticación Segura",
+                desc: "Gestión de accesos con roles y permisos para proteger información sensible de operaciones",
               },
               {
-                name: "Stack Personalizado",
-                desc: "Arquitectura adaptada y escalable para producción",
+                name: "Reportería Avanzada",
+                desc: "Motor de generación de reportes con exportación a PDF, Excel y visualización en tiempo real",
               },
             ].map((tech, idx) => (
               <div key={idx} className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
@@ -262,32 +253,24 @@ export default function Natbot() {
           <div className="bg-linear-to-br from-[#1b3012] to-black text-white rounded-2xl shadow-lg p-8 md:p-12 border border-[#5af388]/30">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <h3 className="text-2xl font-bold mb-2 text-[#5af388]">Centro Educativo Crehana</h3>
-                {/* ===== ACLARACIÓN LEGAL [NUEVO - 01/02/2026] ===== */}
-                {/* 
-                  Línea de aclaración para evitar confusión y problemas legales
-                  - Clarifica que es un centro educativo local diferente
-                  - No está afiliado a la plataforma internacional Crehana
-                  - Importante: ambas organizaciones comparten nombre pero son entidades distintas
-                  - Protege legalmente a KCJ DevStudio y al cliente
-                */}
-                <p className="text-sm text-gray-400 mb-6">Centro educativo local – no afiliado a la plataforma internacional Crehana.</p>
+                <h3 className="text-2xl font-bold mb-2 text-[#5af388]">Servimacons</h3>
+                <p className="text-sm text-gray-400 mb-6">Empresa de servicios a la industria de la construcción y minería.</p>
                 <p className="text-gray-200 mb-6 leading-relaxed">
-                  Centro Educativo Crehana es una institución educativa que ofrece educación por ciclos para jóvenes en extra edad y adultos. Cuenta con aprobación oficial por la Secretaría de Educación del Departamento del Meta, brindando una alternativa flexible y accesible para la culminación de estudios básicos y media.
+                  Servimacons es una empresa especializada en la provisión de servicios integrales, maquinaria pesada y soluciones tecnológicas para proyectos en los sectores construcción, minería y obra civil. Con operaciones extensas y una flota amplia de equipos, requería un control centralizado y eficiente de sus activos.
                 </p>
                 <p className="text-gray-300 mb-6 leading-relaxed">
-                  Natbot fue implementado como un sistema de automatización en WhatsApp para optimizar la atención al estudiante, responder consultas frecuentes sobre horarios, inscripciones, costos y procesos académicos, y mejorar los tiempos de respuesta de manera automática y confiable.
+                  GEMA fue implementada para transformar la gestión de su flota: desde el monitoreo de disponibilidad de equipos hasta la planificación de mantenimiento preventivo. El resultado ha sido una reducción significativa de paros no programados, mejor trazabilidad de operaciones y decisiones estratégicas basadas en datos reales de rendimiento.
                 </p>
                 <a
-                  href="https://www.instagram.com/crehana_3269/"
+                  href="https://www.servimacons.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-[#5af388] text-black px-6 py-3 rounded-lg font-semibold hover:bg-[#45d97a] transition"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M7 2C4.246 2 2 4.246 2 7v10c0 2.754 2.246 5 5 5h10c2.754 0 5-2.246 5-5V7c0-2.754-2.246-5-5-5H7z" />
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-6-8h12v2H6z"/>
                   </svg>
-                  Ver Instagram
+                  Conocer Servimacons
                 </a>
               </div>
               <div className="bg-[#5af388]/10 rounded-xl p-6 border border-[#5af388]/30">
@@ -298,15 +281,15 @@ export default function Natbot() {
                   </div>
                   <div>
                     <div className="text-sm text-gray-400 mb-1">Plataforma</div>
-                    <div className="text-lg font-semibold">WhatsApp Business</div>
+                    <div className="text-lg font-semibold">Web Empresarial / SaaS</div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-400 mb-1">Tipo de Cliente</div>
-                    <div className="text-lg font-semibold">Plataforma Educativa</div>
+                    <div className="text-lg font-semibold">Industrial / Gestión de Flotas</div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-400 mb-1">Desarrollo</div>
-                    <div className="text-lg font-semibold">A la Medida</div>
+                    <div className="text-lg font-semibold">SaaS por suscripción</div>
                   </div>
                 </div>
               </div>
@@ -322,11 +305,11 @@ export default function Natbot() {
           <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
             <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
               {[
-                { label: "Tipo de Proyecto", value: "Automatización / Chatbot Inteligente" },
-                { label: "Plataforma Principal", value: "WhatsApp Business" },
+                { label: "Tipo de Proyecto", value: "Gestión de Flotas Empresarial" },
+                { label: "Plataforma Principal", value: "Web Empresarial SaaS" },
                 { label: "Estado Actual", value: "Implementado y en funcionamiento" },
                 { label: "Modelo de Desarrollo", value: "SaaS por suscripción" },
-                { label: "Disponibilidad", value: "24/7" },
+                { label: "Usuarios Actuales", value: "Operadores, Administrativos, Ejecutivos" },
                 { label: "Escalabilidad", value: "Completamente Escalable" },
               ].map((item, idx) => (
                 <div key={idx} className="p-6">
@@ -344,38 +327,38 @@ export default function Natbot() {
       {/* ===== CARACTERÍSTICAS DESTACADAS ===== */}
       <section className="py-16 md:py-24">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl font-bold mb-12 text-center">¿Por Qué Elegir Natbot?</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">¿Por Qué Elegir GEMA?</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                icon: "🔧",
-                title: "Totalmente Personalizable",
-                desc: "Adaptable a cualquier proceso y flujo de negocio específico",
+                icon: "📈",
+                title: "ROI Comprobado",
+                desc: "Reduce costos de mantenimiento y paros no programados con data en tiempo real",
               },
               {
-                icon: "🚀",
-                title: "Fácil de Implementar",
-                desc: "Integración rápida sin complicaciones técnicas",
+                icon: "🎯",
+                title: "Diseñada para la Industria",
+                desc: "Construida específicamente para necesidades de gestión de flotas industrial",
               },
               {
-                icon: "📊",
-                title: "Métricas y Reportes",
-                desc: "Seguimiento detallado de conversaciones y rendimiento",
+                icon: "🔄",
+                title: "Procesos Automáticos",
+                desc: "Automatiza workflows de mantenimiento y generación de reportes",
+              },
+              {
+                icon: "👥",
+                title: "Fácil de Usar",
+                desc: "Interfaz intuitiva que no requiere capacitación técnica extensiva",
               },
               {
                 icon: "🔐",
-                title: "Seguridad Garantizada",
-                desc: "Integración oficial con APIs de confianza",
-              },
-              {
-                icon: "💼",
-                title: "Soporte Profesional",
-                desc: "Acompañamiento técnico durante implementación y operación",
+                title: "Seguridad Empresarial",
+                desc: "Controles de acceso, auditoría completa y protección de datos sensibles",
               },
               {
                 icon: "⭐",
                 title: "Probado en Producción",
-                desc: "Funcionando exitosamente en empresas reales",
+                desc: "Funcionando exitosamente en empresas reales del sector industrial",
               },
             ].map((feature, idx) => (
               <div key={idx} className="text-center">
@@ -392,10 +375,10 @@ export default function Natbot() {
       <section className="py-16 md:py-24 bg-linear-to-br from-[#1b3012] to-black text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            ¿Quieres automatizar tu atención al cliente?
+            ¿Necesitas optimizar la gestión de tu flota?
           </h2>
           <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-            Natbot puede transformar la forma en que tu empresa atiende a clientes. Contacta con nosotros para conocer cómo implementarlo en tu negocio.
+            GEMA puede transformar tus operaciones industriales. Contacta con nosotros para conocer cómo implementarlo en tu empresa.
           </p>
           <a
             href="/#contact"

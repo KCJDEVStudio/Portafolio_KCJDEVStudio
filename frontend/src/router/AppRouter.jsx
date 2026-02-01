@@ -17,6 +17,7 @@ import Home from "../pages/Home";
 import About from "../pages/About";
 import Privacy from "../pages/Privacy";
 import Natbot from "../pages/Natbot";
+import Gema from "../pages/Gema";
 
 /**
  * AppRouter - Componente que gestiona todas las rutas de la aplicación
@@ -46,8 +47,11 @@ function AppRouter() {
         Ruta dinámicas para mostrar detalles completos de cada proyecto del portafolio.
         NUEVO: Se agregó la ruta /project/natbot para mostrar la página completa del proyecto Natbot
         con descripción, funcionalidades, tecnologías, caso de uso en producción, información del proyecto
+        NUEVO: Se agregó la ruta /project/gema para mostrar la página completa del proyecto GEMA
+        con descripción, funcionalidades, tecnologías, caso de uso en producción, información del proyecto
       */}
       <Route path="/project/natbot" element={<Natbot />} />
+      <Route path="/project/gema" element={<Gema />} />
     </Routes>
   );
 }

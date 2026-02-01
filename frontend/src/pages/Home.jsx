@@ -882,9 +882,7 @@ export default function Home() {
               n === 1 ? (
                 <div key={n} className="bg-white rounded-xl shadow p-6">
                   <a
-                    href="https://gema-co.site/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/project/gema"
                     className="flex flex-col md:flex-row items-center md:items-start gap-4 w-full"
                   >
                     <img
@@ -919,7 +917,7 @@ export default function Home() {
                   key={n}
                   className="bg-white rounded-xl shadow p-6 h-48 flex items-center justify-center"
                 >
-                  <span className="text-gray-600">Proyecto {n}</span>
+                  <span className="text-gray-600">Se nuestro proyecto # {n}</span>
                 </div>
               ),
             )}
