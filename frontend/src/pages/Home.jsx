@@ -947,12 +947,12 @@ export default function Home() {
           <h3 className="text-3xl font-bold text-center mb-12">
             Nuestro equipo
           </h3>
-          <div className="flex flex-col md:flex-row justify-center gap-8 text-center">
+          <div className="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-8 text-center mx-auto">
             {team.map((member) => (
               <button
                 key={member.name}
                 onClick={() => setSelectedMember(member)}
-                className="bg-white p-6 rounded-xl w-64 shadow text-left focus:outline-none cursor-pointer hover:shadow-lg transition-shadow"
+                className="bg-white p-6 rounded-xl w-full md:w-64 shadow text-left focus:outline-none cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <div className="mx-auto mb-4">
                   {member.image ? (
