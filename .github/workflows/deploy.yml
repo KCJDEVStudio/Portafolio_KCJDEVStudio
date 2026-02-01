@@ -1,0 +1,68 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+            node-version: '20'
+            cache: 'npm'
+
+      - name: Install frontend deps and build
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install backend deps
+        working-directory: backend
+        run: |
+          npm ci --omit=dev
+
+      - name: Upload frontend build to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "frontend/dist/*"
+          target: ${{ secrets.FRONTEND_TARGET_PATH }}
+          # overwrite: true  # descomenta si quieres sobreescribir siempre
+
+      - name: Deploy backend and restart
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script_stop: true
+          script: |
+            set -e
+            # Ruta del código en el VPS
+            CODE_DIR="/var/www/Portafolio_KCJDEVStudio"
+
+            # Clona o actualiza el repo
+            if [ ! -d "$CODE_DIR/.git" ]; then
+              git clone https://github.com/KCJDEVStudio/Portafolio_KCJDEVStudio.git "$CODE_DIR"
+            fi
+
+            cd "$CODE_DIR"
+            git fetch --all
+            git reset --hard origin/main
+
+            # Backend: instalar deps y (re)iniciar con pm2
+            cd backend
+            command -v pm2 >/dev/null 2>&1 || npm i -g pm2
+            npm ci --omit=dev
+            pm2 start server.js --name portafolio-backend || pm2 restart portafolio-backend
+
+            # Nota: Asegúrate de que Nginx/Apache sirva ${{ secrets.FRONTEND_TARGET_PATH }}
