@@ -49,7 +49,7 @@ export default function Natbot() {
         - z-50: Por encima de todo contenido
         - Glassmorphism: bg-black/30 backdrop-blur-md cuando hay scroll
         - Incluye navegación responsive (desktop/mobile)
-        - Logo de KCJ DevStudio con enlace a inicio
+        - Logo de KCJ DevStudio con enlace a inicio...
       */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${

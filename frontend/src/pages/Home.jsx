@@ -342,7 +342,7 @@ export default function Home() {
             Botón que abre/cierra el menú móvil
             - Visible solo en pantallas < 768px (md:hidden)
             - El ícono cambia entre hamburguesa (☰) y equis (✕)
-            - Alternar mobileMenuOpen entre true/false
+            - Alternar mobileMenuOpen entre true/false...
           */}
           <button
             className="md:hidden text-white"
