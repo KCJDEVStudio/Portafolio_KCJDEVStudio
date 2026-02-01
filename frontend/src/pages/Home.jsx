@@ -14,7 +14,7 @@
 
 import { useEffect, useState } from "react";
 import gemaImg from "../assets/image/Ejemplo Gema.png";
-import natbotImg from "../assets/image/Logo_natbot.PNG";
+import natbotImg from "../assets/image/Logo_natbot.png";
 import crisImg from "../assets/image/Cris.JPG";
 import kevinImg from "../assets/image/Kevin.jpg";
 import jonathanImg from "../assets/image/Jonathan.jpg";
