@@ -20,13 +20,13 @@ import jonathanImg from "../assets/image/Jonathan.jpg";
 
 /**
  * Componente Home - Página principal del sitio web
- * 
+ *
  * Estados gestionados:
  * - atTop: boolean - Indica si el scroll está en la parte superior (para header styling)
  * - selectedMember: object | null - Miembro del equipo seleccionado para mostrar modal
  * - formStatus: object - Estado del formulario {type: 'success'|'error'|null, message: string}
  * - isLoading: boolean - Indica si se está enviando el formulario
- * 
+ *
  * @returns {JSX.Element} Página principal con todas las secciones
  */
 export default function Home() {
@@ -37,14 +37,17 @@ export default function Home() {
    */
   const [atTop, setAtTop] = useState(true);
 
+  // Base de la API: configurable por Vite, fallback a "/api" para producción detrás de Nginx
+  const API_BASE = import.meta.env.VITE_API_BASE ?? "/api";
+
   /**
    * useEffect: Detector de scroll para cambiar estilo del header
-   * 
+   *
    * Functionality:
    * - Añade listener al evento scroll
    * - Actualiza atTop según posición del scroll (window.scrollY)
    * - Limpia el listener cuando el componente se desmonta
-   * 
+   *
    * Performance: Se ejecuta solo una vez al montar el componente
    */
   useEffect(() => {
@@ -68,7 +71,7 @@ export default function Home() {
    * - type: 'success' | 'error' | null - Tipo de mensaje a mostrar
    * - message: string - Texto del mensaje
    */
-  const [formStatus, setFormStatus] = useState({ type: null, message: '' });
+  const [formStatus, setFormStatus] = useState({ type: null, message: "" });
 
   /**
    * Indica si se está procesando el envío del formulario
@@ -80,7 +83,7 @@ export default function Home() {
   /**
    * Array de objetos que contiene información del equipo de KCJ DevStudio
    * Usado para renderizar tarjetas del equipo y modales
-   * 
+   *
    * Propiedades de cada miembro:
    * - name: string - Nombre completo
    * - role: string - Puesto/rol en la empresa
@@ -102,21 +105,23 @@ export default function Home() {
       role: "Co-fundador / Full Stack Developer",
       image: kevinImg,
       portfolioLink: "https://github.com/kvinjr9",
-      description: "Desarrollador Full Stack enfocado en Backend y arquitectura de software. Trabaja en la lógica del sistema, bases de datos, APIs y seguridad, asegurando que las aplicaciones sean escalables, estables y eficientes.",
+      description:
+        "Desarrollador Full Stack enfocado en Backend y arquitectura de software. Trabaja en la lógica del sistema, bases de datos, APIs y seguridad, asegurando que las aplicaciones sean escalables, estables y eficientes.",
     },
     {
       name: "Jonathan Morales",
       role: "Co-fundador / Full Stack Developer",
       image: jonathanImg,
       portfolioLink: "https://github.com/jonmor-bot",
-      description: "Desarrollador Full Stack con enfoque en diseño visual y comunicación digital. Encargado del diseño gráfico, identidad visual, imágenes y material publicitario, aportando coherencia estética y valor visual a cada proyecto.",
+      description:
+        "Desarrollador Full Stack con enfoque en diseño visual y comunicación digital. Encargado del diseño gráfico, identidad visual, imágenes y material publicitario, aportando coherencia estética y valor visual a cada proyecto.",
     },
   ];
 
   // ==================== CERRAR MODAL CON ESCAPE ====================
   /**
    * useEffect: Listener para cerrar modal al presionar ESC
-   * 
+   *
    * Functionality:
    * - Detecta evento keydown en el documento
    * - Si la tecla es Escape, cierra el modal (selectedMember = null)
@@ -133,7 +138,7 @@ export default function Home() {
   // ==================== MANEJADOR DE ENVÍO DE FORMULARIO ====================
   /**
    * handleContactFormSubmit - Procesa el envío del formulario de contacto
-   * 
+   *
    * Flujo:
    * 1. Previene comportamiento por defecto del formulario
    * 2. Limpia mensajes anteriores
@@ -142,14 +147,14 @@ export default function Home() {
    * 5. Envía POST request al backend
    * 6. Procesa respuesta y muestra mensaje de éxito/error
    * 7. Limpia el formulario si es exitoso
-   * 
+   *
    * @param {Event} e - Evento del formulario
    * @returns {Promise<void>}
-   * 
+   *
    * Validaciones cliente:
    * - El checkbox de privacidad debe estar marcado (formData.get('privacy') === 'on')
    * - Backend valida: nombre, email, teléfono, tipo de proyecto, mensaje
-   * 
+   *
    * Errores manejados:
    * - Respuesta del servidor no OK
    * - Errores de conexión (backend no disponible)
@@ -157,46 +162,58 @@ export default function Home() {
    */
   const handleContactFormSubmit = async (e) => {
     e.preventDefault();
-    setFormStatus({ type: null, message: '' });
+    setFormStatus({ type: null, message: "" });
     setIsLoading(true);
-    
+
     try {
-      const form = document.getElementById('contact-form');
+      const form = document.getElementById("contact-form");
       const formData = new FormData(form);
-      
+
       // Construir payload con datos del formulario
       const payload = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        projectType: formData.get('projectType'),
-        message: formData.get('message'),
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        projectType: formData.get("projectType"),
+        message: formData.get("message"),
         // CRÍTICO: El checkbox cuando está marcado envía 'on', convertimos a boolean
         // Backend SIEMPRE valida este campo - imposible de evadir
-        privacyConsent: formData.get('privacy') === 'on'
+        privacyConsent: formData.get("privacy") === "on",
       };
-      
-      // Realizar petición POST al backend
-      const response = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+
+      // Realizar petición POST al backend (misma-origin vía Nginx proxy)
+      const response = await fetch(`${API_BASE}/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
-      
+
       const data = await response.json();
-      
+
       // Verificar si la respuesta fue exitosa
       if (response.ok && data.success) {
         // Mostrar mensaje de éxito y limpiar formulario
-        setFormStatus({ type: 'success', message: data.message || 'Mensaje enviado exitosamente. Nos contactaremos pronto.' });
+        setFormStatus({
+          type: "success",
+          message:
+            data.message ||
+            "Mensaje enviado exitosamente. Nos contactaremos pronto.",
+        });
         form.reset();
       } else {
         // Mostrar error desde el servidor
-        setFormStatus({ type: 'error', message: data.message || 'Error al enviar el mensaje' });
+        setFormStatus({
+          type: "error",
+          message: data.message || "Error al enviar el mensaje",
+        });
       }
     } catch (error) {
       // Error de conexión (backend no disponible o problema de red)
-      setFormStatus({ type: 'error', message: 'Error de conexión. Asegúrate que el backend esté ejecutándose en http://localhost:5000' });
+      setFormStatus({
+        type: "error",
+        message:
+          "Error de conexión. Verifica que el backend responda en /api/contact",
+      });
     } finally {
       // Siempre desactivar el estado de carga
       setIsLoading(false);
@@ -205,7 +222,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen font-sans bg-white text-gray-900">
-
       {/* ===== HEADER: NAVEGACIÓN STICKY CON EFECTO GLASSMORPHISM ===== */}
       {/* 
         Header que se fija en la parte superior (fixed z-50)
@@ -232,10 +248,18 @@ export default function Home() {
             Parámetros hash (#) permiten scroll suave a secciones
           */}
           <nav className="space-x-6 text-sm font-medium text-white">
-            <a href="#about" className="hover:text-[#5af388] transition">Nosotros</a>
-            <a href="#services" className="hover:text-[#5af388] transition">Servicios</a>
-            <a href="#portfolio" className="hover:text-[#5af388] transition">Portafolio</a>
-            <a href="#contact" className="hover:text-[#5af388] transition">Contacto</a>
+            <a href="#about" className="hover:text-[#5af388] transition">
+              Nosotros
+            </a>
+            <a href="#services" className="hover:text-[#5af388] transition">
+              Servicios
+            </a>
+            <a href="#portfolio" className="hover:text-[#5af388] transition">
+              Portafolio
+            </a>
+            <a href="#contact" className="hover:text-[#5af388] transition">
+              Contacto
+            </a>
           </nav>
         </div>
       </header>
@@ -253,7 +277,8 @@ export default function Home() {
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-            Soluciones digitales <span className="text-[#5af388]">a la medida</span>
+            Soluciones digitales{" "}
+            <span className="text-[#5af388]">a la medida</span>
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto mb-8">
             Creamos páginas web, aplicaciones y sistemas modernos para personas,
@@ -279,58 +304,141 @@ export default function Home() {
           <div className="bg-white rounded-2xl shadow-md p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div>
-                <h3 className="text-3xl md:text-4xl font-bold mb-4">Sobre nosotros</h3>
+                <h3 className="text-3xl md:text-4xl font-bold mb-4">
+                  Sobre nosotros
+                </h3>
                 <p className="text-gray-700 leading-relaxed mb-4 text-base md:text-lg">
-                  En KCJ DevStudio desarrollamos soluciones de programación a la medida
-                  para personas, emprendedores y empresas que buscan llevar sus ideas
-                  al mundo digital. Diseñamos y entregamos páginas web, aplicaciones,
-                  sistemas y automatizaciones funcionales, modernas y seguras,
-                  adaptadas a cada necesidad.
+                  En KCJ DevStudio desarrollamos soluciones de programación a la
+                  medida para personas, emprendedores y empresas que buscan
+                  llevar sus ideas al mundo digital. Diseñamos y entregamos
+                  páginas web, aplicaciones, sistemas y automatizaciones
+                  funcionales, modernas y seguras, adaptadas a cada necesidad.
                 </p>
                 <p className="text-gray-600 mb-4">
-                  Nos especializamos en desarrollo web y de aplicaciones, bases de
-                  datos, sistemas de información y automatización de procesos. También
-                  ofrecemos soporte y mantenimiento técnico continuo para que tus
-                  soluciones sigan aportando valor con el tiempo.
+                  Nos especializamos en desarrollo web y de aplicaciones, bases
+                  de datos, sistemas de información y automatización de
+                  procesos. También ofrecemos soporte y mantenimiento técnico
+                  continuo para que tus soluciones sigan aportando valor con el
+                  tiempo.
                 </p>
                 <ul className="grid sm:grid-cols-2 gap-3 mt-4 text-gray-700">
                   <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#5af388] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg
+                      className="w-5 h-5 text-[#5af388] shrink-0 mt-1"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 12l4 4L19 6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                     <div>
-                      <div className="font-semibold">Diseño centrado en el usuario</div>
-                      <div className="text-sm text-gray-600">Interfaces claras y usables que facilitan la conversión.</div>
+                      <div className="font-semibold">
+                        Diseño centrado en el usuario
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        Interfaces claras y usables que facilitan la conversión.
+                      </div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#5af388] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg
+                      className="w-5 h-5 text-[#5af388] shrink-0 mt-1"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 12l4 4L19 6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                     <div>
                       <div className="font-semibold">Performance y SEO</div>
-                      <div className="text-sm text-gray-600">Optimización de velocidad y estructura para mejor visibilidad en buscadores.</div>
+                      <div className="text-sm text-gray-600">
+                        Optimización de velocidad y estructura para mejor
+                        visibilidad en buscadores.
+                      </div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#5af388] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg
+                      className="w-5 h-5 text-[#5af388] shrink-0 mt-1"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 12l4 4L19 6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                     <div>
                       <div className="font-semibold">Integraciones seguras</div>
-                      <div className="text-sm text-gray-600">Conexiones fiables con pagos, CRMs y APIs externas.</div>
+                      <div className="text-sm text-gray-600">
+                        Conexiones fiables con pagos, CRMs y APIs externas.
+                      </div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#5af388] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg
+                      className="w-5 h-5 text-[#5af388] shrink-0 mt-1"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 12l4 4L19 6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                     <div>
                       <div className="font-semibold">Soporte y evolución</div>
-                      <div className="text-sm text-gray-600">Mantenimiento y mejoras continuas para que tu producto crezca seguro.</div>
+                      <div className="text-sm text-gray-600">
+                        Mantenimiento y mejoras continuas para que tu producto
+                        crezca seguro.
+                      </div>
                     </div>
                   </li>
                 </ul>
               </div>
 
               <div className="bg-linear-to-br from-white to-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm">
-                <div className="h-44 rounded-md flex items-center justify-center mb-4" style={{ backgroundColor: '#1b3012' }}>
-                  <img src="/logo_horizontal.png" alt="KCJ logo" className="max-h-28 md:max-h-75 w-auto object-contain mx-auto" />
+                <div
+                  className="h-44 rounded-md flex items-center justify-center mb-4"
+                  style={{ backgroundColor: "#1b3012" }}
+                >
+                  <img
+                    src="/logo_horizontal.png"
+                    alt="KCJ logo"
+                    className="max-h-28 md:max-h-75 w-auto object-contain mx-auto"
+                  />
                 </div>
-                <p className="text-gray-600 mb-4">Creemos en el trato cercano, la comunicación clara y el acompañamiento constante durante cada proyecto. Estamos contigo desde la idea hasta el mantenimiento.</p>
-                <a href="#contact" className="inline-block w-full text-center bg-[#5af388] text-black py-2 rounded-lg font-semibold hover:bg-[#45d97a] transition">Contactar y cotizar</a>
+                <p className="text-gray-600 mb-4">
+                  Creemos en el trato cercano, la comunicación clara y el
+                  acompañamiento constante durante cada proyecto. Estamos
+                  contigo desde la idea hasta el mantenimiento.
+                </p>
+                <a
+                  href="#contact"
+                  className="inline-block w-full text-center bg-[#5af388] text-black py-2 rounded-lg font-semibold hover:bg-[#45d97a] transition"
+                >
+                  Contactar y cotizar
+                </a>
               </div>
             </div>
           </div>
@@ -340,7 +448,6 @@ export default function Home() {
       {/* ===== SERVICES SECTION: SERVICIOS OFRECIDOS ===== */}
       <section id="services" className="py-24">
         <div className="max-w-7xl mx-auto px-6">
-
           <div className="text-center mb-20">
             <h3 className="text-4xl font-bold mb-4">Nuestros servicios</h3>
             <p className="text-gray-600">
@@ -351,10 +458,12 @@ export default function Home() {
           {/* Servicio 1 */}
           <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
             <div>
-              <h4 className="text-3xl font-bold mb-4">Web Profesional para Microempresas</h4>
+              <h4 className="text-3xl font-bold mb-4">
+                Web Profesional para Microempresas
+              </h4>
               <p className="text-gray-600 mb-6">
-                Sitios web modernos diseñados para empresas que buscan
-                una presencia digital sólida y profesional. Entregamos diseños
+                Sitios web modernos diseñados para empresas que buscan una
+                presencia digital sólida y profesional. Entregamos diseños
                 centrados en el usuario, estructura optimizada para SEO, páginas
                 de servicios y contacto completas, y un panel administrativo
                 para que puedas actualizar contenidos sin depender de soporte.
@@ -362,40 +471,130 @@ export default function Home() {
                 dispositivos para mejorar la conversión.
               </p>
               <ul className="space-y-2 text-gray-700">
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Diseños responsivos para todos los dispositivos</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Optimización SEO para tener mayor visibilidad en buscadores</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Formularios de contacto</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Panel administrativo</li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Diseños responsivos para todos los dispositivos
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Optimización SEO para tener mayor visibilidad en buscadores
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Formularios de contacto
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Panel administrativo
+                </li>
               </ul>
             </div>
 
             <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden">
-              <img src="/Img_Web.png" alt="Web Profesional" className="w-full h-full object-cover" />
+              <img
+                src="/Img_Web.png"
+                alt="Web Profesional"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
           {/* Servicio 2 */}
           <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
             <div className="md:order-2">
-              <h4 className="text-3xl font-bold mb-4">Aplicaciones Web y Móviles</h4>
+              <h4 className="text-3xl font-bold mb-4">
+                Aplicaciones Web y Móviles
+              </h4>
               <p className="text-gray-600 mb-6">
                 Aplicaciones a la medida para optimizar procesos internos y
-                ofrecer experiencias rápidas y accesibles a tus usuarios. Desarrollamos
-                frontends responsivos, backends escalables e integraciones con APIs
-                y servicios externos (pagos, pasarelas, CRMs). Incluimos buenas
-                prácticas de seguridad, autenticación y mantenimiento para crecer sin
-                fricciones.
+                ofrecer experiencias rápidas y accesibles a tus usuarios.
+                Desarrollamos frontends responsivos, backends escalables e
+                integraciones con APIs y servicios externos (pagos, pasarelas,
+                CRMs). Incluimos buenas prácticas de seguridad, autenticación y
+                mantenimiento para crecer sin fricciones.
               </p>
               <ul className="space-y-2 text-gray-700">
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Aplicaciones web modernas</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Sistemas internos</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Integraciones API</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Seguridad y escalabilidad</li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Aplicaciones web modernas
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Sistemas internos
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Integraciones API
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Seguridad y escalabilidad
+                </li>
               </ul>
             </div>
 
             <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden">
-              <img src="/Img_Movil.png" alt="Web Profesional" className="w-full h-full object-cover" />
+              <img
+                src="/Img_Movil.png"
+                alt="Web Profesional"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
@@ -405,49 +604,139 @@ export default function Home() {
               <h4 className="text-3xl font-bold mb-4">Tiendas Online</h4>
               <p className="text-gray-600 mb-6">
                 E-commerce completos preparados para vender desde el primer día:
-                catálogos, gestión de inventario, variantes de producto y flujos de
-                compra optimizados. Integramos pasarelas de pago, opciones de envío,
-                y paneles de administración para pedidos y clientes; además aplicamos
-                técnicas de conversión y analítica para maximizar ventas.
+                catálogos, gestión de inventario, variantes de producto y flujos
+                de compra optimizados. Integramos pasarelas de pago, opciones de
+                envío, y paneles de administración para pedidos y clientes;
+                además aplicamos técnicas de conversión y analítica para
+                maximizar ventas.
               </p>
               <ul className="space-y-2 text-gray-700">
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Catálogo de productos</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Pagos online</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Gestión de pedidos e inventarios</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Panel administrativo</li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Catálogo de productos
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Pagos online
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Gestión de pedidos e inventarios
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Panel administrativo
+                </li>
               </ul>
             </div>
 
             <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden">
-              <img src="/Img_Ecommerce.png" alt="Web Profesional" className="w-full h-full object-cover" />
+              <img
+                src="/Img_Ecommerce.png"
+                alt="Web Profesional"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
           {/* Servicio 4 */}
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="md:order-2">
-              <h4 className="text-3xl font-bold mb-4">Automatizaciones y Chatbots</h4>
+              <h4 className="text-3xl font-bold mb-4">
+                Automatizaciones y Chatbots
+              </h4>
               <p className="text-gray-600 mb-6">
-                Sistemas inteligentes que automatizan tareas repetitivas y mejoran
-                la atención al cliente. Diseñamos flujos de automatización, bots
-                conversacionales y conectores a WhatsApp/Telegram o servicios internos
-                para reducir tiempos de respuesta y errores manuales. Incluimos
-                métricas y ajustes para que las automatizaciones evolucionen con tu
-                negocio.
+                Sistemas inteligentes que automatizan tareas repetitivas y
+                mejoran la atención al cliente. Diseñamos flujos de
+                automatización, bots conversacionales y conectores a
+                WhatsApp/Telegram o servicios internos para reducir tiempos de
+                respuesta y errores manuales. Incluimos métricas y ajustes para
+                que las automatizaciones evolucionen con tu negocio.
               </p>
               <ul className="space-y-2 text-gray-700">
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Automatización de procesos</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Chatbots personalizados</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Integración con WhatsApp</li>
-                <li><svg className="w-4 h-4 inline-block mr-2 text-black" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z"/></svg>Sistemas a la medida</li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Automatización de procesos
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Chatbots personalizados
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Integración con WhatsApp
+                </li>
+                <li>
+                  <svg
+                    className="w-4 h-4 inline-block mr-2 text-black"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19l12-12L19.6 5.6z" />
+                  </svg>
+                  Sistemas a la medida
+                </li>
               </ul>
             </div>
 
             <div className="h-72 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden">
-              <img src="/Img_Ia.png" alt="Web Profesional" className="w-full h-full object-cover" />
+              <img
+                src="/Img_Ia.png"
+                alt="Web Profesional"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
-
         </div>
       </section>
 
@@ -456,14 +745,28 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <h3 className="text-3xl font-bold mb-10">Portafolio</h3>
           <div className="grid md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((n) => (
+            {[1, 2, 3].map((n) =>
               n === 1 ? (
                 <div key={n} className="bg-white rounded-xl shadow p-6">
-                  <a href="https://gema-co.site/" target="_blank" rel="noopener noreferrer" className="flex flex-col md:flex-row items-center md:items-start gap-4 w-full">
-                    <img src={gemaImg} alt="GEMA" className="h-20 md:h-28 w-auto object-contain shrink-0" />
+                  <a
+                    href="https://gema-co.site/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col md:flex-row items-center md:items-start gap-4 w-full"
+                  >
+                    <img
+                      src={gemaImg}
+                      alt="GEMA"
+                      className="h-20 md:h-28 w-auto object-contain shrink-0"
+                    />
                     <div className="text-left flex-1">
                       <h4 className="font-semibold text-lg mb-1">GEMA</h4>
-                      <p className="text-sm text-gray-600 wrap-break-word">Solución para gestión de flotas de maquinaria pesada, mantenimiento preventivo y correctivo, registro de horas y reportes para optimizar la vida útil de equipos, entre otras.</p>
+                      <p className="text-sm text-gray-600 wrap-break-word">
+                        Solución para gestión de flotas de maquinaria pesada,
+                        mantenimiento preventivo y correctivo, registro de horas
+                        y reportes para optimizar la vida útil de equipos, entre
+                        otras.
+                      </p>
                     </div>
                   </a>
                 </div>
@@ -474,8 +777,8 @@ export default function Home() {
                 >
                   <span className="text-gray-600">Proyecto {n}</span>
                 </div>
-              )
-            ))}
+              ),
+            )}
           </div>
         </div>
       </section>
@@ -483,7 +786,9 @@ export default function Home() {
       {/* TEAM */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
-          <h3 className="text-3xl font-bold text-center mb-12">Nuestro equipo</h3>
+          <h3 className="text-3xl font-bold text-center mb-12">
+            Nuestro equipo
+          </h3>
           <div className="flex flex-col md:flex-row justify-center gap-8 text-center">
             {team.map((member) => (
               <button
@@ -493,9 +798,15 @@ export default function Home() {
               >
                 <div className="mx-auto mb-4">
                   {member.image ? (
-                    <img src={member.image} alt={member.name} className="w-20 h-20 rounded-full object-cover mx-auto" />
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-20 h-20 rounded-full object-cover mx-auto"
+                    />
                   ) : (
-                    <div className="w-20 h-20 bg-[#5af388] rounded-full mx-auto mb-0 flex items-center justify-center text-sm text-white">Próx.</div>
+                    <div className="w-20 h-20 bg-[#5af388] rounded-full mx-auto mb-0 flex items-center justify-center text-sm text-white">
+                      Próx.
+                    </div>
                   )}
                 </div>
                 <h4 className="font-semibold">{member.name}</h4>
@@ -507,20 +818,38 @@ export default function Home() {
 
         {selectedMember && (
           <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="absolute inset-0 bg-black/50" onClick={() => setSelectedMember(null)} />
+            <div
+              className="absolute inset-0 bg-black/50"
+              onClick={() => setSelectedMember(null)}
+            />
             <div className="relative bg-white rounded-xl shadow-lg max-w-xl w-full mx-4 p-6">
-              <button className="absolute top-3 right-3 text-gray-500" onClick={() => setSelectedMember(null)}>Cerrar</button>
+              <button
+                className="absolute top-3 right-3 text-gray-500"
+                onClick={() => setSelectedMember(null)}
+              >
+                Cerrar
+              </button>
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="shrink-0">
                   {selectedMember.image ? (
-                    <img src={selectedMember.image} alt={selectedMember.name} className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover" />
+                    <img
+                      src={selectedMember.image}
+                      alt={selectedMember.name}
+                      className="w-40 h-40 md:w-56 md:h-56 rounded-full object-cover"
+                    />
                   ) : (
-                    <div className="w-40 h-40 md:w-56 md:h-56 bg-gray-100 rounded-full flex items-center justify-center text-gray-500">Imagen próximamente</div>
+                    <div className="w-40 h-40 md:w-56 md:h-56 bg-gray-100 rounded-full flex items-center justify-center text-gray-500">
+                      Imagen próximamente
+                    </div>
                   )}
                 </div>
                 <div>
-                  <h4 className="text-2xl font-bold mb-2">{selectedMember.name}</h4>
-                  <div className="text-sm text-gray-600 mb-4">{selectedMember.role}</div>
+                  <h4 className="text-2xl font-bold mb-2">
+                    {selectedMember.name}
+                  </h4>
+                  <div className="text-sm text-gray-600 mb-4">
+                    {selectedMember.role}
+                  </div>
                   <p className="text-gray-700">{selectedMember.description}</p>
                   <a
                     href={selectedMember.portfolioLink}
@@ -529,7 +858,7 @@ export default function Home() {
                     className="inline-block mt-6 bg-[#5af388] text-black px-6 py-2 rounded-lg font-semibold hover:bg-[#45d97a] transition"
                   >
                     Ver portafolio
-                    </a>
+                  </a>
                 </div>
               </div>
             </div>
@@ -548,8 +877,12 @@ export default function Home() {
       */}
       <section id="contact" className="py-24 bg-gray-50">
         <div className="max-w-3xl mx-auto px-6">
-          <h3 className="text-3xl font-bold mb-6 text-center">¿Listo para tu proyecto?</h3>
-          <p className="text-gray-700 mb-6 text-center">Escríbenos y hagamos realidad tu idea digital.</p>
+          <h3 className="text-3xl font-bold mb-6 text-center">
+            ¿Listo para tu proyecto?
+          </h3>
+          <p className="text-gray-700 mb-6 text-center">
+            Escríbenos y hagamos realidad tu idea digital.
+          </p>
 
           {/* 
             Formulario de contacto
@@ -570,57 +903,69 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Campo: Nombre */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
-                <input 
-                  id="name" 
-                  name="name" 
-                  placeholder="Nombre Completo" 
-                  required 
-                  disabled={isLoading} 
-                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" 
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Nombre
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  placeholder="Nombre Completo"
+                  required
+                  disabled={isLoading}
+                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed"
                 />
               </div>
 
               {/* Campo: Email */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input 
-                  id="email" 
-                  name="email" 
-                  type="email" 
-                  placeholder="email@ejemplo.com" 
-                  required 
-                  disabled={isLoading} 
-                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" 
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="email@ejemplo.com"
+                  required
+                  disabled={isLoading}
+                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed"
                 />
               </div>
 
               {/* Campo: Teléfono */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
-                <input 
-                  name="phone" 
-                  type="tel" 
-                  placeholder="+57 312 3456789" 
-                  required 
-                  disabled={isLoading} 
-                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed" 
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Teléfono
+                </label>
+                <input
+                  name="phone"
+                  type="tel"
+                  placeholder="+57 312 3456789"
+                  required
+                  disabled={isLoading}
+                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed"
                 />
               </div>
 
               {/* Campo: Tipo de proyecto */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de proyecto</label>
-                <select 
-                  name="projectType" 
-                  defaultValue="Web" 
-                  disabled={isLoading} 
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Tipo de proyecto
+                </label>
+                <select
+                  name="projectType"
+                  defaultValue="Web"
+                  disabled={isLoading}
                   className="block w-full border border-gray-200 rounded px-3 py-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
                 >
-                  <option value="Web">Web Profesional para Microempresas</option>
+                  <option value="Web">
+                    Web Profesional para Microempresas
+                  </option>
                   <option value="App">Aplicaciones Web y Móviles</option>
                   <option value="Ecommerce">Tiendas Online</option>
-                  <option value="Automatizacion">Automatizaciones y Chatbots</option>
+                  <option value="Automatizacion">
+                    Automatizaciones y Chatbots
+                  </option>
                   <option value="Otro">Otro</option>
                 </select>
               </div>
@@ -628,13 +973,15 @@ export default function Home() {
 
             {/* Campo: Mensaje */}
             <div className="mt-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
-              <textarea 
-                name="message" 
-                rows={5} 
-                placeholder="Dinos que idea tienes en mente y la hacemos realidad!!!" 
-                required 
-                disabled={isLoading} 
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Mensaje
+              </label>
+              <textarea
+                name="message"
+                rows={5}
+                placeholder="Dinos que idea tienes en mente y la hacemos realidad!!!"
+                required
+                disabled={isLoading}
                 className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed"
               />
             </div>
@@ -649,20 +996,23 @@ export default function Home() {
               - Cumple con Ley 1581 de 2012 (Colombia)
             */}
             <div className="mt-4 flex items-start gap-3">
-              <input 
-                id="privacy" 
-                name="privacy" 
-                type="checkbox" 
-                required 
-                disabled={isLoading} 
-                className="mt-1 h-4 w-4 text-[#5af388] border-gray-300 rounded disabled:cursor-not-allowed cursor-pointer" 
+              <input
+                id="privacy"
+                name="privacy"
+                type="checkbox"
+                required
+                disabled={isLoading}
+                className="mt-1 h-4 w-4 text-[#5af388] border-gray-300 rounded disabled:cursor-not-allowed cursor-pointer"
               />
-              <label htmlFor="privacy" className="text-sm text-gray-700 cursor-pointer">
+              <label
+                htmlFor="privacy"
+                className="text-sm text-gray-700 cursor-pointer"
+              >
                 He leído y acepto las{" "}
-                <a 
-                  href="/privacy" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-[#5af388] underline hover:text-[#45d97a] transition"
                 >
                   políticas de privacidad
@@ -677,11 +1027,13 @@ export default function Home() {
               - Desaparece cuando el usuario intenta enviar de nuevo
             */}
             {formStatus.message && (
-              <div className={`mt-4 p-4 rounded-md ${
-                formStatus.type === 'success' 
-                  ? 'bg-green-100 text-green-800 border border-green-300' 
-                  : 'bg-red-100 text-red-800 border border-red-300'
-              }`}>
+              <div
+                className={`mt-4 p-4 rounded-md ${
+                  formStatus.type === "success"
+                    ? "bg-green-100 text-green-800 border border-green-300"
+                    : "bg-red-100 text-red-800 border border-red-300"
+                }`}
+              >
                 {formStatus.message}
               </div>
             )}
@@ -693,7 +1045,7 @@ export default function Home() {
                 disabled={isLoading}
                 className="inline-flex items-center bg-[#5af388] text-black px-6 py-2 rounded-md font-semibold hover:bg-[#45d97a] transition disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
-                {isLoading ? 'Enviando...' : 'Enviar'}
+                {isLoading ? "Enviando..." : "Enviar"}
               </button>
             </div>
           </form>
@@ -703,29 +1055,56 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="text-center py-8 text-sm text-gray-600 border-t">
         <div className="flex items-center justify-center gap-4 mb-4">
-          <div className="flex items-center justify-center w-12 h-12 rounded-full" style={{ backgroundColor: '#1b3012' }}>
-            <img src="/logo_vertical.png" alt="KCJ logo" className="w-15 h-15 object-contain" />
+          <div
+            className="flex items-center justify-center w-12 h-12 rounded-full"
+            style={{ backgroundColor: "#1b3012" }}
+          >
+            <img
+              src="/logo_vertical.png"
+              alt="KCJ logo"
+              className="w-15 h-15 object-contain"
+            />
           </div>
           <div className="text-left">
-            <div className="text-xl font-bold" style={{ color: '#5af388' }}>KCJ</div>
-            <div className="text-sm" style={{ color: '#000000' }}>DevStudio</div>
+            <div className="text-xl font-bold" style={{ color: "#5af388" }}>
+              KCJ
+            </div>
+            <div className="text-sm" style={{ color: "#000000" }}>
+              DevStudio
+            </div>
           </div>
         </div>
 
         <div className="mt-2">
-          <a href="https://www.instagram.com/kcj__dev_studio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 font-medium" style={{ color: '#1b3012' }} aria-label="Instagram">
+          <a
+            href="https://www.instagram.com/kcj__dev_studio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 font-medium"
+            style={{ color: "#1b3012" }}
+            aria-label="Instagram"
+          >
             <span className="text-sm">Instagram</span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-              <path d="M7 2C4.246 2 2 4.246 2 7v10c0 2.754 2.246 5 5 5h10c2.754 0 5-2.246 5-5V7c0-2.754-2.246-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10z"/>
-              <path d="M12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M7 2C4.246 2 2 4.246 2 7v10c0 2.754 2.246 5 5 5h10c2.754 0 5-2.246 5-5V7c0-2.754-2.246-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10z" />
+              <path d="M12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z" />
               <circle cx="18.5" cy="5.5" r="1.25" />
             </svg>
           </a>
         </div>
 
-        <div>© {new Date().getFullYear()} KCJ DevStudio. Todos los derechos reservados.</div>
+        <div>
+          © {new Date().getFullYear()} KCJ DevStudio. Todos los derechos
+          reservados.
+        </div>
       </footer>
-
     </div>
   );
 }
