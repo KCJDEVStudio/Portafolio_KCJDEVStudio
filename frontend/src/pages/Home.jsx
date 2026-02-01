@@ -81,6 +81,22 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /**
+   * useEffect: Scroll automático al formulario de contacto
+   * 
+   * Se ejecuta cuando la página se monta y comprueba si hay una bandera
+   * en sessionStorage indicando que debe scrollear a #contact
+   * (útil cuando viene desde la página de Privacy)
+   */
+  useEffect(() => {
+    if (sessionStorage.getItem('scrollToContact')) {
+      sessionStorage.removeItem('scrollToContact');
+      setTimeout(() => {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }, []);
+
   // ==================== ESTADO DEL EQUIPO Y FORMULARIO ====================
   /**
    * Miembro del equipo seleccionado actualmente
@@ -419,7 +435,7 @@ export default function Home() {
           </p>
           <a
             href="#contact"
-            className="inline-block bg-[#5af388] text-black px-8 py-3 rounded-full font-semibold hover:bg-[#fce38a] transition"
+            className="inline-block bg-[#5af388] text-black px-8 py-3 rounded-full font-semibold hover:bg-[#45d97a] transition"
           >
             Iniciar proyecto
           </a>
@@ -936,7 +952,7 @@ export default function Home() {
               <button
                 key={member.name}
                 onClick={() => setSelectedMember(member)}
-                className="bg-white p-6 rounded-xl w-64 shadow text-left focus:outline-none"
+                className="bg-white p-6 rounded-xl w-64 shadow text-left focus:outline-none cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <div className="mx-auto mb-4">
                   {member.image ? (
@@ -1186,7 +1202,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="inline-flex items-center bg-[#5af388] text-black px-6 py-2 rounded-md font-semibold hover:bg-[#45d97a] transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+                className="inline-flex items-center bg-[#5af388] text-black px-6 py-2 rounded-md font-semibold hover:bg-[#45d97a] transition cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
                 {isLoading ? "Enviando..." : "Enviar"}
               </button>

@@ -558,7 +558,12 @@ export default function Privacy() {
                   Volver al Inicio
                 </a>
                 <a
-                  href="/#contact"
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    sessionStorage.setItem('scrollToContact', 'true');
+                    window.location.href = '/';
+                  }}
                   className="inline-block border-2 border-[#5af388] text-[#5af388] px-6 py-2 rounded-md font-semibold hover:bg-[#5af388] hover:text-black transition text-center"
                 >
                   Contactar
