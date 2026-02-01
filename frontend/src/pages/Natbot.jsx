@@ -16,7 +16,7 @@
  */
 
 import { useEffect, useState } from "react";
-import natbotImg from "../assets/image/Logo_natbot.PNG";
+import natbotImg from "../assets/image/Logo_natbot.png";
 
 export default function Natbot() {
   const [atTop, setAtTop] = useState(true);
