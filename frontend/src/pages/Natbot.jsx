@@ -107,7 +107,7 @@ export default function Natbot() {
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             {/* Logo del proyecto */}
             <div className="shrink-0">
-              <img src={natbotImg} alt="Natbot" className="w-32 h-32 md:w-48 md:h-48 object-contain shadow-lg" />
+              <img src={natbotImg} alt="Natbot" loading="lazy" className="w-32 h-32 md:w-48 md:h-48 object-contain shadow-lg" />
             </div>
 
             {/* Información principal */}
@@ -416,6 +416,7 @@ export default function Natbot() {
             <img
               src="/logo_vertical.png"
               alt="KCJ logo"
+              loading="lazy"
               className="w-15 h-15 object-contain"
             />
           </div>

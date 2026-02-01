@@ -191,16 +191,75 @@ export default function Home() {
       const form = document.getElementById("contact-form");
       const formData = new FormData(form);
 
-      // Construir payload con datos del formulario
+      // Extraer datos del formulario
+      const name = formData.get("name");
+      const email = formData.get("email");
+      const phone = formData.get("phone");
+      const projectType = formData.get("projectType");
+      const message = formData.get("message");
+
+      // ===== VALIDACIONES FRONTEND =====
+      // Validar que los campos requeridos no estén vacíos
+      if (!name || !email || !phone || !projectType || !message) {
+        setFormStatus({
+          type: "error",
+          message: "Por favor completa todos los campos requeridos",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Validar formato de email con regex
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        setFormStatus({
+          type: "error",
+          message: "Por favor ingresa un email válido",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Validar formato de teléfono (al menos 10 dígitos)
+      const phoneRegex = /^\d{10,}$/;
+      if (!phoneRegex.test(phone.replace(/\D/g, ""))) {
+        setFormStatus({
+          type: "error",
+          message: "Por favor ingresa un teléfono válido (mínimo 10 dígitos)",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Validar que el mensaje tenga al menos 10 caracteres
+      if (message.trim().length < 10) {
+        setFormStatus({
+          type: "error",
+          message: "El mensaje debe tener al menos 10 caracteres",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Validar privacyConsent
+      const privacyConsent = formData.get("privacy") === "on";
+      if (!privacyConsent) {
+        setFormStatus({
+          type: "error",
+          message: "Debes aceptar los términos de privacidad",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Construir payload con datos validados
       const payload = {
-        name: formData.get("name"),
-        email: formData.get("email"),
-        phone: formData.get("phone"),
-        projectType: formData.get("projectType"),
-        message: formData.get("message"),
-        // CRÍTICO: El checkbox cuando está marcado envía 'on', convertimos a boolean
-        // Backend SIEMPRE valida este campo - imposible de evadir
-        privacyConsent: formData.get("privacy") === "on",
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        projectType: projectType.trim(),
+        message: message.trim(),
+        privacyConsent: true,
       };
 
       // Realizar petición POST al backend (misma-origin vía Nginx proxy)
@@ -271,27 +330,11 @@ export default function Home() {
             Enlaces a secciones del mismo componente usando #id
             Parámetros hash (#) permiten scroll suave a secciones
           */}
-<<<<<<< HEAD
           <nav className="hidden md:flex space-x-6 text-sm font-medium text-white">
             <a href="#about" className="hover:text-[#5af388] transition">Nosotros</a>
             <a href="#services" className="hover:text-[#5af388] transition">Servicios</a>
             <a href="#portfolio" className="hover:text-[#5af388] transition">Portafolio</a>
             <a href="#contact" className="hover:text-[#5af388] transition">Contacto</a>
-=======
-          <nav className="space-x-6 text-sm font-medium text-white">
-            <a href="#about" className="hover:text-[#5af388] transition">
-              Nosotros
-            </a>
-            <a href="#services" className="hover:text-[#5af388] transition">
-              Servicios
-            </a>
-            <a href="#portfolio" className="hover:text-[#5af388] transition">
-              Portafolio
-            </a>
-            <a href="#contact" className="hover:text-[#5af388] transition">
-              Contacto
-            </a>
->>>>>>> 39561ecedf8af1147f46590d9566fd8dcb71c452
           </nav>
 
           {/* ===== BOTÓN HAMBURGUESA MOBILE [NUEVO - 01/02/2026] ===== */}
@@ -847,6 +890,7 @@ export default function Home() {
                     <img
                       src={gemaImg}
                       alt="GEMA"
+                      loading="lazy"
                       className="h-20 md:h-28 w-auto object-contain shrink-0"
                     />
                     <div className="text-left flex-1">
@@ -863,7 +907,7 @@ export default function Home() {
               ) : n === 2 ? (
                 <div key={n} className="bg-white rounded-xl shadow p-6">
                   <a href="/project/natbot" className="flex flex-col md:flex-row items-center md:items-start gap-4 w-full">
-                    <img src={natbotImg} alt="Natbot" className="h-20 md:h-28 w-auto object-contain shrink-0" />
+                    <img src={natbotImg} alt="Natbot" loading="lazy" className="h-20 md:h-28 w-auto object-contain shrink-0" />
                     <div className="text-left flex-1">
                       <h4 className="font-semibold text-lg mb-1">Natbot</h4>
                       <p className="text-sm text-gray-600 wrap-break-word">Chatbot inteligente para WhatsApp que automatiza atención al cliente 24/7 y gestiona procesos operativos.</p>
@@ -901,6 +945,7 @@ export default function Home() {
                     <img
                       src={member.image}
                       alt={member.name}
+                      loading="lazy"
                       className="w-20 h-20 rounded-full object-cover mx-auto"
                     />
                   ) : (

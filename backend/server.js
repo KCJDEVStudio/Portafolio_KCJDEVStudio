@@ -13,6 +13,8 @@
 
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import { sendContactEmail } from './controllers/contactController.js';
 
@@ -30,24 +32,60 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// ==================== SEGURIDAD ====================
+
+/**
+ * Helmet Middleware - Seguridad HTTP
+ * Configura headers HTTP seguros para proteger contra vulnerabilidades comunes:
+ * - X-Frame-Options: Previene clickjacking
+ * - X-Content-Type-Options: Previene MIME sniffing
+ * - X-XSS-Protection: Protección XSS en navegadores antiguos
+ * - Strict-Transport-Security: Obliga HTTPS en producción
+ * - Content-Security-Policy: Restringe recursos permitidos
+ */
+app.use(helmet());
+
+/**
+ * Rate Limiting Middleware
+ * Limita el número de solicitudes por IP para prevenir abuse/DDoS
+ * Configuración para /api/contact:
+ * - 5 solicitudes por 15 minutos por IP
+ * - Mensaje de error personalizado
+ */
+const contactLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 5, // 5 solicitudes máximo
+  message: 'Demasiadas solicitudes desde esta IP. Intenta más tarde.',
+  standardHeaders: true, // Retorna info del rate limit en `RateLimit-*` headers
+  legacyHeaders: false, // Desactiva los `X-RateLimit-*` headers
+  skip: (req) => {
+    // En desarrollo, permitir más solicitudes
+    return process.env.NODE_ENV === 'development';
+  }
+});
+
 // ==================== MIDDLEWARES ====================
 
 /**
  * CORS (Cross-Origin Resource Sharing) Middleware
  * 
- * Permite que el frontend (http://localhost:5173) acceda a este servidor
- * En producción, se debe restringir a dominios específicos
+ * Permite que el frontend acceda a este servidor
+ * En desarrollo: Permite todas las origins
+ * En producción: Debe restringirse al dominio específico
  * 
- * Configuración actual: Permite todas las origins (SOLO PARA DESARROLLO)
- * 
- * TODO PRODUCCIÓN: Configurar CORS específicamente
- * Ejemplo:
+ * Para producción, reemplazar con:
  * app.use(cors({
- *   origin: 'https://tudominio.com',
+ *   origin: process.env.FRONTEND_URL || 'https://tudominio.com',
  *   credentials: true
  * }));
  */
-app.use(cors());
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || '*',
+  credentials: true,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
+};
+app.use(cors(corsOptions));
 
 /**
  * JSON Parser Middleware
@@ -94,8 +132,10 @@ app.use(express.urlencoded({ extended: true }));
  * - 200 OK: Mensaje enviado exitosamente
  * - 400 Bad Request: Campos inválidos o privacyConsent faltante
  * - 500 Internal Server Error: Error al enviar email o error del servidor
+ * 
+ * Rate Limiting: 5 solicitudes por 15 minutos (desactivado en desarrollo)
  */
-app.post('/api/contact', sendContactEmail);
+app.post('/api/contact', contactLimiter, sendContactEmail);
 
 /**
  * GET /api/health
