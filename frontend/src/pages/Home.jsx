@@ -14,6 +14,7 @@
 
 import { useEffect, useState } from "react";
 import gemaImg from "../assets/image/Ejemplo Gema.png";
+import natbotImg from "../assets/image/Logo_natbot.PNG";
 import crisImg from "../assets/image/Cris.JPG";
 import kevinImg from "../assets/image/Kevin.jpg";
 import jonathanImg from "../assets/image/Jonathan.jpg";
@@ -23,9 +24,22 @@ import jonathanImg from "../assets/image/Jonathan.jpg";
  * 
  * Estados gestionados:
  * - atTop: boolean - Indica si el scroll está en la parte superior (para header styling)
+ * - mobileMenuOpen: boolean - Controla si el menú hamburguesa está abierto [NUEVO - 01/02/2026]
  * - selectedMember: object | null - Miembro del equipo seleccionado para mostrar modal
  * - formStatus: object - Estado del formulario {type: 'success'|'error'|null, message: string}
  * - isLoading: boolean - Indica si se está enviando el formulario
+ * 
+ * ===== CAMBIOS REALIZADOS (Febrero 1, 2026) =====
+ * 1. HEADER RESPONSIVE [NUEVO]
+ *    - Agregado estado mobileMenuOpen para controlar visibilidad del menú móvil
+ *    - Navegación desktop: oculta en móviles (hidden md:flex)
+ *    - Navegación mobile: desplegable con botón hamburguesa
+ * 
+ * 2. PORTAFOLIO - PROYECTO NATBOT [NUEVO]
+ *    - Se importó Logo_natbot.PNG del proyecto
+ *    - Se agregó tarjeta 2 en la sección Portfolio para mostrar Natbot
+ *    - Incluye enlace a /project/natbot para ver detalles completos
+ *    - Muestra logo real del proyecto en lugar de ícono genérico
  * 
  * @returns {JSX.Element} Página principal con todas las secciones
  */
@@ -36,6 +50,14 @@ export default function Home() {
    * Se usa para aplicar glassmorphism cuando el usuario hace scroll
    */
   const [atTop, setAtTop] = useState(true);
+
+  /**
+   * Estado que controla si el menú móvil está abierto [NUEVO - 01/02/2026]
+   * Se usa para mostrar/ocultar navegación en dispositivos pequeños (<768px)
+   * - true: Menú móvil visible (abierto)
+   * - false: Menú móvil oculto (cerrado)
+   */
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   /**
    * useEffect: Detector de scroll para cambiar estilo del header
@@ -226,18 +248,78 @@ export default function Home() {
             className="h-50 w-auto object-contain"
           />
 
+          {/* ===== NAVEGACIÓN DESKTOP [ACTUALIZADO - 01/02/2026] ===== */}
           {/* 
-            Navegación principal
+            Navegación visible solo en pantallas ≥ 768px (md breakpoint)
+            Oculta en móviles con "hidden md:flex"
             Enlaces a secciones del mismo componente usando #id
             Parámetros hash (#) permiten scroll suave a secciones
           */}
-          <nav className="space-x-6 text-sm font-medium text-white">
+          <nav className="hidden md:flex space-x-6 text-sm font-medium text-white">
             <a href="#about" className="hover:text-[#5af388] transition">Nosotros</a>
             <a href="#services" className="hover:text-[#5af388] transition">Servicios</a>
             <a href="#portfolio" className="hover:text-[#5af388] transition">Portafolio</a>
             <a href="#contact" className="hover:text-[#5af388] transition">Contacto</a>
           </nav>
+
+          {/* ===== BOTÓN HAMBURGUESA MOBILE [NUEVO - 01/02/2026] ===== */}
+          {/* 
+            Botón que abre/cierra el menú móvil
+            - Visible solo en pantallas < 768px (md:hidden)
+            - El ícono cambia entre hamburguesa (☰) y equis (✕)
+            - Alternar mobileMenuOpen entre true/false
+          */}
+          <button
+            className="md:hidden text-white"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Menú"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+            </svg>
+          </button>
         </div>
+
+        {/* ===== NAVEGACIÓN MOBILE [NUEVO - 01/02/2026] ===== */}
+        {/* 
+          Menú desplegable para dispositivos móviles
+          - Solo se renderiza cuando mobileMenuOpen === true
+          - Se cierra automáticamente al hacer clic en un enlace
+          - Estilo: fondo negro semi-transparente (bg-black/95) con borde superior
+          - Enlaces apilados verticalmente con iconos hover verde (#5af388)
+        */}
+        {mobileMenuOpen && (
+          <nav className="md:hidden bg-black/95 border-t border-white/10 px-6 py-4 flex flex-col space-y-3">
+            <a 
+              href="#about" 
+              className="text-white hover:text-[#5af388] transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Nosotros
+            </a>
+            <a 
+              href="#services" 
+              className="text-white hover:text-[#5af388] transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Servicios
+            </a>
+            <a 
+              href="#portfolio" 
+              className="text-white hover:text-[#5af388] transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Portafolio
+            </a>
+            <a 
+              href="#contact" 
+              className="text-white hover:text-[#5af388] transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Contacto
+            </a>
+          </nav>
+        )}
       </header>
 
       {/* Espaciador para compensar el header fixed */}
@@ -464,6 +546,16 @@ export default function Home() {
                     <div className="text-left flex-1">
                       <h4 className="font-semibold text-lg mb-1">GEMA</h4>
                       <p className="text-sm text-gray-600 wrap-break-word">Solución para gestión de flotas de maquinaria pesada, mantenimiento preventivo y correctivo, registro de horas y reportes para optimizar la vida útil de equipos, entre otras.</p>
+                    </div>
+                  </a>
+                </div>
+              ) : n === 2 ? (
+                <div key={n} className="bg-white rounded-xl shadow p-6">
+                  <a href="/project/natbot" className="flex flex-col md:flex-row items-center md:items-start gap-4 w-full">
+                    <img src={natbotImg} alt="Natbot" className="h-20 md:h-28 w-auto object-contain shrink-0" />
+                    <div className="text-left flex-1">
+                      <h4 className="font-semibold text-lg mb-1">Natbot</h4>
+                      <p className="text-sm text-gray-600 wrap-break-word">Chatbot inteligente para WhatsApp que automatiza atención al cliente 24/7 y gestiona procesos operativos.</p>
                     </div>
                   </a>
                 </div>

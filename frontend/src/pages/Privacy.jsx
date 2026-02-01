@@ -77,9 +77,6 @@ export default function Privacy() {
             <a href="/" className="hover:text-[#5af388] transition">
               Inicio
             </a>
-            <a href="/#contact" className="hover:text-[#5af388] transition">
-              Contacto
-            </a>
           </nav>
         </div>
       </header>
