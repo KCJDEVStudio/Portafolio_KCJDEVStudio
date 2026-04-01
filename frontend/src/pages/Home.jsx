@@ -425,10 +425,10 @@ export default function Home() {
       */}
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
             Soluciones digitales{" "}
             <span className="text-[#5af388]">a la medida</span>
-          </h2>
+          </h1>
           <p className="text-gray-600 max-w-2xl mx-auto mb-8">
             Creamos páginas web, aplicaciones y sistemas modernos para personas,
             emprendedores y empresas que quieren crecer digitalmente.

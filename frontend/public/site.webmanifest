@@ -1,0 +1,46 @@
+{
+  "name": "KCJ DevStudio",
+  "short_name": "KCJ",
+  "description": "Desarrollamos soluciones de software personalizadas incluyendo aplicaciones web, chatbots de IA y automatización empresarial.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#5af388",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/logo_vertical.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo_vertical.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo_vertical.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["productivity", "business"],
+  "screenshots": [
+    {
+      "src": "/logo_horizontal.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/logo_horizontal.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}
