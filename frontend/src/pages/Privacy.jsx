@@ -74,7 +74,7 @@ export default function Privacy() {
 
           {/* Navegación */}
           <nav className="space-x-6 text-sm font-medium text-white">
-            <a href="/" className="hover:text-[#5af388] transition">
+            <a href="/" className="hover:text-[#fad643] transition">
               Inicio
             </a>
           </nav>
@@ -107,7 +107,7 @@ export default function Privacy() {
               {/* 1. Responsable del Tratamiento */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">1.</span> Responsable del Tratamiento de Datos
+                  <span className="text-[#fad643]">1.</span> Responsable del Tratamiento de Datos
                 </h2>
                 <p className="mb-4">
                   <strong>Razón Social:</strong> KCJ DevStudio
@@ -119,7 +119,7 @@ export default function Privacy() {
                   <strong>Correo de contacto:</strong>{" "}
                   <a
                     href="mailto:kcjdevstudio@gmail.com"
-                    className="text-[#5af388] hover:underline"
+                    className="text-[#fad643] hover:underline"
                   >
                     kcjdevstudio@gmail.com
                   </a>
@@ -134,7 +134,7 @@ export default function Privacy() {
               {/* 2. Datos Personales Recopilados */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">2.</span> Datos Personales Recopilados
+                  <span className="text-[#fad643]">2.</span> Datos Personales Recopilados
                 </h2>
                 <p className="mb-4">
                   A través de nuestro formulario de contacto recopilamos los
@@ -171,7 +171,7 @@ export default function Privacy() {
               {/* 3. Finalidad del Tratamiento */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">3.</span> Finalidad del Tratamiento
+                  <span className="text-[#fad643]">3.</span> Finalidad del Tratamiento
                 </h2>
                 <p className="mb-4">
                   Utilizamos tus datos personales exclusivamente para:
@@ -179,7 +179,7 @@ export default function Privacy() {
                 <ul className="space-y-3 ml-4">
                   <li className="flex gap-3">
                     <svg
-                      className="w-5 h-5 text-[#5af388] shrink-0 mt-0.5"
+                      className="w-5 h-5 text-[#fad643] shrink-0 mt-0.5"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -192,7 +192,7 @@ export default function Privacy() {
                   </li>
                   <li className="flex gap-3">
                     <svg
-                      className="w-5 h-5 text-[#5af388] shrink-0 mt-0.5"
+                      className="w-5 h-5 text-[#fad643] shrink-0 mt-0.5"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -204,7 +204,7 @@ export default function Privacy() {
                   </li>
                   <li className="flex gap-3">
                     <svg
-                      className="w-5 h-5 text-[#5af388] shrink-0 mt-0.5"
+                      className="w-5 h-5 text-[#fad643] shrink-0 mt-0.5"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -214,7 +214,7 @@ export default function Privacy() {
                   </li>
                   <li className="flex gap-3">
                     <svg
-                      className="w-5 h-5 text-[#5af388] shrink-0 mt-0.5"
+                      className="w-5 h-5 text-[#fad643] shrink-0 mt-0.5"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -226,7 +226,7 @@ export default function Privacy() {
                   </li>
                   <li className="flex gap-3">
                     <svg
-                      className="w-5 h-5 text-[#5af388] shrink-0 mt-0.5"
+                      className="w-5 h-5 text-[#fad643] shrink-0 mt-0.5"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -242,7 +242,7 @@ export default function Privacy() {
               {/* 4. Base Legal del Tratamiento */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">4.</span> Base Legal del
+                  <span className="text-[#fad643]">4.</span> Base Legal del
                   Tratamiento
                 </h2>
                 <p className="mb-4">
@@ -264,7 +264,7 @@ export default function Privacy() {
               {/* 5. Derechos del Titular */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">5.</span> Derechos del
+                  <span className="text-[#fad643]">5.</span> Derechos del
                   Titular de los Datos (ARCO)
                 </h2>
                 <p className="mb-4">
@@ -273,7 +273,7 @@ export default function Privacy() {
                 </p>
 
                 <div className="space-y-4">
-                  <div className="border-l-4 border-[#5af388] pl-4 py-2">
+                  <div className="border-l-4 border-[#fad643] pl-4 py-2">
                     <h3 className="font-semibold text-gray-900 mb-1">
                       Derecho de Acceso
                     </h3>
@@ -284,7 +284,7 @@ export default function Privacy() {
                     </p>
                   </div>
 
-                  <div className="border-l-4 border-[#5af388] pl-4 py-2">
+                  <div className="border-l-4 border-[#fad643] pl-4 py-2">
                     <h3 className="font-semibold text-gray-900 mb-1">
                       Derecho de Rectificación
                     </h3>
@@ -295,7 +295,7 @@ export default function Privacy() {
                     </p>
                   </div>
 
-                  <div className="border-l-4 border-[#5af388] pl-4 py-2">
+                  <div className="border-l-4 border-[#fad643] pl-4 py-2">
                     <h3 className="font-semibold text-gray-900 mb-1">
                       Derecho de Cancelación
                     </h3>
@@ -306,7 +306,7 @@ export default function Privacy() {
                     </p>
                   </div>
 
-                  <div className="border-l-4 border-[#5af388] pl-4 py-2">
+                  <div className="border-l-4 border-[#fad643] pl-4 py-2">
                     <h3 className="font-semibold text-gray-900 mb-1">
                       Derecho de Oposición
                     </h3>
@@ -323,7 +323,7 @@ export default function Privacy() {
                   cualquiera de estos derechos, envía un correo a{" "}
                   <a
                     href="mailto:kcjdevstudio@gmail.com"
-                    className="text-[#5af388] hover:underline"
+                    className="text-[#fad643] hover:underline"
                   >
                     kcjdevstudio@gmail.com
                   </a>
@@ -334,7 +334,7 @@ export default function Privacy() {
               {/* 6. Almacenamiento y Seguridad */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">6.</span> Almacenamiento y
+                  <span className="text-[#fad643]">6.</span> Almacenamiento y
                   Seguridad de la Información
                 </h2>
                 <p className="mb-4">
@@ -365,7 +365,7 @@ export default function Privacy() {
               {/* 7. Tiempo de Retención */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">7.</span> Tiempo de
+                  <span className="text-[#fad643]">7.</span> Tiempo de
                   Retención de Datos
                 </h2>
                 <p className="mb-4">
@@ -392,7 +392,7 @@ export default function Privacy() {
               {/* 8. Compartición de Datos */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">8.</span> Compartición de
+                  <span className="text-[#fad643]">8.</span> Compartición de
                   Datos con Terceros
                 </h2>
                 <p className="mb-4">
@@ -420,7 +420,7 @@ export default function Privacy() {
               {/* 9. Consentimiento */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">9.</span> Tu Consentimiento
+                  <span className="text-[#fad643]">9.</span> Tu Consentimiento
                 </h2>
                 <p className="mb-4">
                   Al completar nuestro formulario de contacto y aceptar estas
@@ -454,7 +454,7 @@ export default function Privacy() {
               {/* 10. Cambios a esta Política */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">10.</span> Cambios a esta
+                  <span className="text-[#fad643]">10.</span> Cambios a esta
                   Política
                 </h2>
                 <p className="mb-4">
@@ -469,7 +469,7 @@ export default function Privacy() {
               {/* 11. Información Legal */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">11.</span> Marco Legal
+                  <span className="text-[#fad643]">11.</span> Marco Legal
                 </h2>
                 <p className="mb-4">
                   Esta política de privacidad se rige por:
@@ -497,7 +497,7 @@ export default function Privacy() {
               {/* 12. Contacto */}
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <span className="text-[#5af388]">12.</span> Información de
+                  <span className="text-[#fad643]">12.</span> Información de
                   Contacto
                 </h2>
                 <p className="mb-4">
@@ -516,7 +516,7 @@ export default function Privacy() {
                     <strong>Correo Electrónico:</strong>{" "}
                     <a
                       href="mailto:kcjdevstudio@gmail.com"
-                      className="text-[#5af388] hover:underline font-semibold"
+                      className="text-[#fad643] hover:underline font-semibold"
                     >
                       kcjdevstudio@gmail.com
                     </a>
@@ -553,7 +553,7 @@ export default function Privacy() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="/"
-                  className="inline-block bg-[#5af388] text-black px-6 py-2 rounded-md font-semibold hover:bg-[#45d97a] transition text-center"
+                  className="inline-block bg-[#fad643] text-black px-6 py-2 rounded-md font-semibold hover:bg-[#e8c12c] transition text-center"
                 >
                   Volver al Inicio
                 </a>
@@ -564,7 +564,7 @@ export default function Privacy() {
                     sessionStorage.setItem('scrollToContact', 'true');
                     window.location.href = '/';
                   }}
-                  className="inline-block border-2 border-[#5af388] text-[#5af388] px-6 py-2 rounded-md font-semibold hover:bg-[#5af388] hover:text-black transition text-center"
+                  className="inline-block border-2 border-[#fad643] text-[#fad643] px-6 py-2 rounded-md font-semibold hover:bg-[#fad643] hover:text-black transition text-center"
                 >
                   Contactar
                 </a>
@@ -578,17 +578,17 @@ export default function Privacy() {
       <footer className="text-center py-8 text-sm text-gray-600 border-t mt-12">
         <div className="flex items-center justify-center gap-4 mb-4">
           <div
-            className="flex items-center justify-center w-12 h-12 rounded-full"
-            style={{ backgroundColor: "#1b3012" }}
+            className="flex items-center justify-center w-16 h-16 rounded-full border border-[#dbe4ff]"
+            style={{ backgroundColor: "#f5f8ff" }}
           >
             <img
               src="/logo_vertical.png"
               alt="KCJ logo"
-              className="w-15 h-15 object-contain"
+              className="w-12 h-12 object-contain"
             />
           </div>
           <div className="text-left">
-            <div className="text-xl font-bold" style={{ color: "#5af388" }}>
+            <div className="text-xl font-bold" style={{ color: "#fad643" }}>
               KCJ
             </div>
             <div className="text-sm" style={{ color: "#000000" }}>

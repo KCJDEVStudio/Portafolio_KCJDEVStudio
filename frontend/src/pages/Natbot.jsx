@@ -59,15 +59,15 @@ export default function Natbot() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2">
             <img
-              src="/logo_horizontal.png"
-              alt="KCJ DevStudio"
+              className="flex items-center justify-center w-16 h-16 rounded-full border border-[#dbe4ff]"
+              style={{ backgroundColor: "#f5f8ff" }}
               className="h-50 w-auto object-contain"
             />
           </a>
 
-          {/* Navegación Desktop */}
+                className="w-12 h-12 object-contain"
           <nav className="hidden md:flex space-x-6 text-sm font-medium text-white">
-            <a href="/#portfolio" className="hover:text-[#5af388] transition">
+            <a href="/#portfolio" className="hover:text-[#fad643] transition">
               Inicio
             </a>
           </nav>
@@ -89,7 +89,7 @@ export default function Natbot() {
           <nav className="md:hidden bg-black/95 border-t border-white/10 px-6 py-4 flex flex-col space-y-3">
             <a 
               href="/#portfolio" 
-              className="text-white hover:text-[#5af388] transition py-2"
+              className="text-white hover:text-[#fad643] transition py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Volver al Portafolio
@@ -102,7 +102,7 @@ export default function Natbot() {
       <div className="h-20" />
 
       {/* ===== HERO SECTION ===== */}
-      <section className="py-12 md:py-20 bg-linear-to-br from-[#1b3012] to-black text-white">
+      <section className="py-12 md:py-20 bg-linear-to-br from-[#1c2f80] to-black text-white">
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             {/* Logo del proyecto */}
@@ -112,12 +112,12 @@ export default function Natbot() {
 
             {/* Información principal */}
             <div>
-              <div className="inline-block bg-[#5af388]/20 text-[#5af388] px-4 py-1 rounded-full text-sm font-semibold mb-4">
+              <div className="inline-block bg-[#fad643]/20 text-[#fad643] px-4 py-1 rounded-full text-sm font-semibold mb-4">
                 Automatización
               </div>
               <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
                 Natbot
-                <span className="block text-[#5af388] text-3xl md:text-4xl">
+                <span className="block text-[#fad643] text-3xl md:text-4xl">
                   Automatización Inteligente en WhatsApp
                 </span>
               </h1>
@@ -125,7 +125,7 @@ export default function Natbot() {
                 Asistente digital 24/7 que automatiza la atención al cliente y optimiza procesos internos mediante WhatsApp.
               </p>
               <div className="flex flex-wrap gap-3">
-                <div className="inline-block bg-[#5af388] text-black px-4 py-2 rounded-lg font-semibold">
+                <div className="inline-block bg-[#fad643] text-black px-4 py-2 rounded-lg font-semibold">
                   ✓ Implementado y en funcionamiento
                 </div>
                 <div className="inline-block bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold">
@@ -193,7 +193,7 @@ export default function Natbot() {
       <section className="py-16 md:py-24">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-3xl font-bold mb-12">Funcionalidades Principales</h2>
-          <div className="bg-linear-to-br from-[#5af388]/5 to-[#1b3012]/5 rounded-2xl border border-[#5af388]/20 p-8 md:p-12">
+          <div className="bg-linear-to-br from-[#fad643]/5 to-[#1c2f80]/5 rounded-2xl border border-[#fad643]/20 p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-6">
               {[
                 "Respuestas automáticas personalizadas según contexto del negocio",
@@ -206,7 +206,7 @@ export default function Natbot() {
                 "Sistema escalable y completamente personalizable según necesidades",
               ].map((feature, idx) => (
                 <div key={idx} className="flex gap-4">
-                  <div className="text-[#5af388] text-2xl shrink-0 pt-1">✓</div>
+                  <div className="text-[#fad643] text-2xl shrink-0 pt-1">✓</div>
                   <p className="text-gray-700 leading-relaxed">{feature}</p>
                 </div>
               ))}
@@ -247,7 +247,7 @@ export default function Natbot() {
               },
             ].map((tech, idx) => (
               <div key={idx} className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-                <h3 className="text-lg font-semibold text-[#5af388] mb-2">{tech.name}</h3>
+                <h3 className="text-lg font-semibold text-[#fad643] mb-2">{tech.name}</h3>
                 <p className="text-gray-600">{tech.desc}</p>
               </div>
             ))}
@@ -259,10 +259,10 @@ export default function Natbot() {
       <section className="py-16 md:py-24">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-3xl font-bold mb-12 text-center">Caso de Uso en Producción</h2>
-          <div className="bg-linear-to-br from-[#1b3012] to-black text-white rounded-2xl shadow-lg p-8 md:p-12 border border-[#5af388]/30">
+          <div className="bg-linear-to-br from-[#1c2f80] to-black text-white rounded-2xl shadow-lg p-8 md:p-12 border border-[#fad643]/30">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <h3 className="text-2xl font-bold mb-2 text-[#5af388]">Centro Educativo Crehana</h3>
+                <h3 className="text-2xl font-bold mb-2 text-[#fad643]">Centro Educativo Crehana</h3>
                 {/* ===== ACLARACIÓN LEGAL [NUEVO - 01/02/2026] ===== */}
                 {/* 
                   Línea de aclaración para evitar confusión y problemas legales
@@ -282,7 +282,7 @@ export default function Natbot() {
                   href="https://www.instagram.com/crehana_3269/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#5af388] text-black px-6 py-3 rounded-lg font-semibold hover:bg-[#45d97a] transition"
+                  className="inline-flex items-center gap-2 bg-[#fad643] text-black px-6 py-3 rounded-lg font-semibold hover:bg-[#e8c12c] transition"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M7 2C4.246 2 2 4.246 2 7v10c0 2.754 2.246 5 5 5h10c2.754 0 5-2.246 5-5V7c0-2.754-2.246-5-5-5H7z" />
@@ -290,11 +290,11 @@ export default function Natbot() {
                   Ver Instagram
                 </a>
               </div>
-              <div className="bg-[#5af388]/10 rounded-xl p-6 border border-[#5af388]/30">
+              <div className="bg-[#fad643]/10 rounded-xl p-6 border border-[#fad643]/30">
                 <div className="space-y-4">
                   <div>
                     <div className="text-sm text-gray-400 mb-1">Estado del Proyecto</div>
-                    <div className="text-lg font-semibold text-[#5af388]">Implementado y en funcionamiento</div>
+                    <div className="text-lg font-semibold text-[#fad643]">Implementado y en funcionamiento</div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-400 mb-1">Plataforma</div>
@@ -389,7 +389,7 @@ export default function Natbot() {
       </section>
 
       {/* ===== CTA SECTION ===== */}
-      <section className="py-16 md:py-24 bg-linear-to-br from-[#1b3012] to-black text-white">
+      <section className="py-16 md:py-24 bg-linear-to-br from-[#1c2f80] to-black text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             ¿Quieres automatizar tu atención al cliente?
@@ -399,7 +399,7 @@ export default function Natbot() {
           </p>
           <a
             href="/#contact"
-            className="inline-block bg-[#5af388] text-black px-8 py-4 rounded-lg font-semibold hover:bg-[#45d97a] transition text-lg"
+            className="inline-block bg-[#fad643] text-black px-8 py-4 rounded-lg font-semibold hover:bg-[#e8c12c] transition text-lg"
           >
             Solicitar Información
           </a>
@@ -411,7 +411,7 @@ export default function Natbot() {
         <div className="flex items-center justify-center gap-4 mb-4">
           <div
             className="flex items-center justify-center w-12 h-12 rounded-full"
-            style={{ backgroundColor: "#1b3012" }}
+            style={{ backgroundColor: "#1c2f80" }}
           >
             <img
               src="/logo_vertical.png"
@@ -421,7 +421,7 @@ export default function Natbot() {
             />
           </div>
           <div className="text-left">
-            <div className="text-xl font-bold" style={{ color: "#5af388" }}>
+            <div className="text-xl font-bold" style={{ color: "#fad643" }}>
               KCJ
             </div>
             <div className="text-sm" style={{ color: "#000000" }}>

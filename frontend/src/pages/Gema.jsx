@@ -42,15 +42,15 @@ export default function Gema() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2">
             <img
-              src="/logo_horizontal.png"
-              alt="KCJ DevStudio"
+              className="flex items-center justify-center w-16 h-16 rounded-full border border-[#dbe4ff]"
+              style={{ backgroundColor: "#f5f8ff" }}
               className="h-50 w-auto object-contain"
             />
           </a>
 
-          {/* Navegación Desktop */}
+                className="w-12 h-12 object-contain"
           <nav className="hidden md:flex space-x-6 text-sm font-medium text-white">
-            <a href="/#portfolio" className="hover:text-[#5af388] transition">
+            <a href="/#portfolio" className="hover:text-[#fad643] transition">
               Inicio
             </a>
           </nav>
@@ -72,7 +72,7 @@ export default function Gema() {
           <nav className="md:hidden bg-black/95 border-t border-white/10 px-6 py-4 flex flex-col space-y-3">
             <a 
               href="/#portfolio" 
-              className="text-white hover:text-[#5af388] transition py-2"
+              className="text-white hover:text-[#fad643] transition py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Volver al Portafolio
@@ -85,7 +85,7 @@ export default function Gema() {
       <div className="h-20" />
 
       {/* ===== HERO SECTION ===== */}
-      <section className="py-12 md:py-20 bg-linear-to-br from-[#1b3012] to-black text-white">
+      <section className="py-12 md:py-20 bg-linear-to-br from-[#1c2f80] to-black text-white">
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             {/* Logo del proyecto */}
@@ -95,12 +95,12 @@ export default function Gema() {
 
             {/* Información principal */}
             <div>
-              <div className="inline-block bg-[#5af388]/20 text-[#5af388] px-4 py-1 rounded-full text-sm font-semibold mb-4">
+              <div className="inline-block bg-[#fad643]/20 text-[#fad643] px-4 py-1 rounded-full text-sm font-semibold mb-4">
                 Gestión Industrial
               </div>
               <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
                 GEMA
-                <span className="block text-[#5af388] text-3xl md:text-4xl">
+                <span className="block text-[#fad643] text-3xl md:text-4xl">
                   Gestor Especializado en Maquinaria Amarilla
                 </span>
               </h1>
@@ -108,7 +108,7 @@ export default function Gema() {
                 Plataforma integral para gestionar flotas de maquinaria pesada, optimizar mantenimiento y maximizar la vida útil de equipos.
               </p>
               <div className="flex flex-wrap gap-3">
-                <div className="inline-block bg-[#5af388] text-black px-4 py-2 rounded-lg font-semibold">
+                <div className="inline-block bg-[#fad643] text-black px-4 py-2 rounded-lg font-semibold">
                   ✓ Implementado y en funcionamiento
                 </div>
                 <div className="inline-block bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold">
@@ -118,7 +118,7 @@ export default function Gema() {
                   href="https://www.gema-co.site/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-[#5af388] text-black px-6 py-2 rounded-lg font-semibold hover:bg-[#45d97a] transition"
+                  className="inline-block bg-[#fad643] text-black px-6 py-2 rounded-lg font-semibold hover:bg-[#e8c12c] transition"
                 >
                   Ir a GEMA
                 </a>
@@ -184,7 +184,7 @@ export default function Gema() {
       <section className="py-16 md:py-24">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-3xl font-bold mb-12">Funcionalidades Principales</h2>
-          <div className="bg-linear-to-br from-[#5af388]/5 to-[#1b3012]/5 rounded-2xl border border-[#5af388]/20 p-8 md:p-12">
+          <div className="bg-linear-to-br from-[#fad643]/5 to-[#1c2f80]/5 rounded-2xl border border-[#fad643]/20 p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-6">
               {[
                 "Inventario centralizado de maquinaria pesada con especificaciones técnicas",
@@ -197,7 +197,7 @@ export default function Gema() {
                 "Sistema de alertas inteligentes para paros prolongados o anomalías",
               ].map((feature, idx) => (
                 <div key={idx} className="flex gap-4">
-                  <div className="text-[#5af388] text-2xl shrink-0 pt-1">✓</div>
+                  <div className="text-[#fad643] text-2xl shrink-0 pt-1">✓</div>
                   <p className="text-gray-700 leading-relaxed">{feature}</p>
                 </div>
               ))}
@@ -238,7 +238,7 @@ export default function Gema() {
               },
             ].map((tech, idx) => (
               <div key={idx} className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-                <h3 className="text-lg font-semibold text-[#5af388] mb-2">{tech.name}</h3>
+                <h3 className="text-lg font-semibold text-[#fad643] mb-2">{tech.name}</h3>
                 <p className="text-gray-600">{tech.desc}</p>
               </div>
             ))}
@@ -250,10 +250,10 @@ export default function Gema() {
       <section className="py-16 md:py-24">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-3xl font-bold mb-12 text-center">Caso de Uso en Producción</h2>
-          <div className="bg-linear-to-br from-[#1b3012] to-black text-white rounded-2xl shadow-lg p-8 md:p-12 border border-[#5af388]/30">
+          <div className="bg-linear-to-br from-[#1c2f80] to-black text-white rounded-2xl shadow-lg p-8 md:p-12 border border-[#fad643]/30">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <h3 className="text-2xl font-bold mb-2 text-[#5af388]">Servimacons</h3>
+                <h3 className="text-2xl font-bold mb-2 text-[#fad643]">Servimacons</h3>
                 <p className="text-sm text-gray-400 mb-6">Empresa de servicios a la industria de la construcción y minería.</p>
                 <p className="text-gray-200 mb-6 leading-relaxed">
                   Servimacons es una empresa especializada en la provisión de servicios integrales, maquinaria pesada y soluciones tecnológicas para proyectos en los sectores construcción, minería y obra civil. Con operaciones extensas y una flota amplia de equipos, requería un control centralizado y eficiente de sus activos.
@@ -265,7 +265,7 @@ export default function Gema() {
                   href="https://www.servimacons.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#5af388] text-black px-6 py-3 rounded-lg font-semibold hover:bg-[#45d97a] transition"
+                  className="inline-flex items-center gap-2 bg-[#fad643] text-black px-6 py-3 rounded-lg font-semibold hover:bg-[#e8c12c] transition"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-6-8h12v2H6z"/>
@@ -273,11 +273,11 @@ export default function Gema() {
                   Conocer Servimacons
                 </a>
               </div>
-              <div className="bg-[#5af388]/10 rounded-xl p-6 border border-[#5af388]/30">
+              <div className="bg-[#fad643]/10 rounded-xl p-6 border border-[#fad643]/30">
                 <div className="space-y-4">
                   <div>
                     <div className="text-sm text-gray-400 mb-1">Estado del Proyecto</div>
-                    <div className="text-lg font-semibold text-[#5af388]">Implementado y en funcionamiento</div>
+                    <div className="text-lg font-semibold text-[#fad643]">Implementado y en funcionamiento</div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-400 mb-1">Plataforma</div>
@@ -372,7 +372,7 @@ export default function Gema() {
       </section>
 
       {/* ===== CTA SECTION ===== */}
-      <section className="py-16 md:py-24 bg-linear-to-br from-[#1b3012] to-black text-white">
+      <section className="py-16 md:py-24 bg-linear-to-br from-[#1c2f80] to-black text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             ¿Necesitas optimizar la gestión de tu flota?
@@ -382,7 +382,7 @@ export default function Gema() {
           </p>
           <a
             href="/#contact"
-            className="inline-block bg-[#5af388] text-black px-8 py-4 rounded-lg font-semibold hover:bg-[#45d97a] transition text-lg"
+            className="inline-block bg-[#fad643] text-black px-8 py-4 rounded-lg font-semibold hover:bg-[#e8c12c] transition text-lg"
           >
             Solicitar Información
           </a>
@@ -394,7 +394,7 @@ export default function Gema() {
         <div className="flex items-center justify-center gap-4 mb-4">
           <div
             className="flex items-center justify-center w-12 h-12 rounded-full"
-            style={{ backgroundColor: "#1b3012" }}
+            style={{ backgroundColor: "#1c2f80" }}
           >
             <img
               src="/logo_vertical.png"
@@ -404,7 +404,7 @@ export default function Gema() {
             />
           </div>
           <div className="text-left">
-            <div className="text-xl font-bold" style={{ color: "#5af388" }}>
+            <div className="text-xl font-bold" style={{ color: "#fad643" }}>
               KCJ
             </div>
             <div className="text-sm" style={{ color: "#000000" }}>

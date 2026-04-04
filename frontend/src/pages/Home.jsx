@@ -17,7 +17,6 @@ import gemaImg from "../assets/image/Ejemplo Gema.png";
 import natbotImg from "../assets/image/Logo_natbot.png";
 import crisImg from "../assets/image/Cris.JPG";
 import kevinImg from "../assets/image/Kevin.jpg";
-import jonathanImg from "../assets/image/Jonathan.jpg";
 
 /**
  * Componente Home - Página principal del sitio web
@@ -145,14 +144,6 @@ export default function Home() {
       portfolioLink: "https://github.com/kvinjr9",
       description:
         "Desarrollador Full Stack enfocado en Backend y arquitectura de software. Trabaja en la lógica del sistema, bases de datos, APIs y seguridad, asegurando que las aplicaciones sean escalables, estables y eficientes.",
-    },
-    {
-      name: "Jonathan Morales",
-      role: "Co-fundador / Full Stack Developer",
-      image: jonathanImg,
-      portfolioLink: "https://github.com/jonmor-bot",
-      description:
-        "Desarrollador Full Stack con enfoque en diseño visual y comunicación digital. Encargado del diseño gráfico, identidad visual, imágenes y material publicitario, aportando coherencia estética y valor visual a cada proyecto.",
     },
   ];
 
@@ -329,10 +320,12 @@ export default function Home() {
       */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          atTop ? "bg-black" : "bg-black/30 backdrop-blur-md shadow-lg"
+          atTop
+            ? "bg-[#f5f8ff]"
+            : "bg-[#f5f8ff]/60 backdrop-blur-md shadow-lg border-b border-[#dbe4ff]/70"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 h-[95px] flex items-center justify-between">
           <img
             src="/logo_horizontal.png"
             alt="KCJ DevStudio"
@@ -346,11 +339,11 @@ export default function Home() {
             Enlaces a secciones del mismo componente usando #id
             Parámetros hash (#) permiten scroll suave a secciones
           */}
-          <nav className="hidden md:flex space-x-6 text-sm font-medium text-white">
-            <a href="#about" className="hover:text-[#5af388] transition">Nosotros</a>
-            <a href="#services" className="hover:text-[#5af388] transition">Servicios</a>
-            <a href="#portfolio" className="hover:text-[#5af388] transition">Portafolio</a>
-            <a href="#contact" className="hover:text-[#5af388] transition">Contacto</a>
+          <nav className="hidden md:flex space-x-6 text-sm font-medium text-[#1c2f80]">
+            <a href="#about" className="hover:text-[#fad643] transition">Nosotros</a>
+            <a href="#services" className="hover:text-[#fad643] transition">Servicios</a>
+            <a href="#portfolio" className="hover:text-[#fad643] transition">Portafolio</a>
+            <a href="#contact" className="hover:text-[#fad643] transition">Contacto</a>
           </nav>
 
           {/* ===== BOTÓN HAMBURGUESA MOBILE [NUEVO - 01/02/2026] ===== */}
@@ -361,7 +354,7 @@ export default function Home() {
             - Alternar mobileMenuOpen entre true/false...
           */}
           <button
-            className="md:hidden text-white"
+            className="md:hidden text-[#1c2f80]"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Menú"
           >
@@ -377,34 +370,34 @@ export default function Home() {
           - Solo se renderiza cuando mobileMenuOpen === true
           - Se cierra automáticamente al hacer clic en un enlace
           - Estilo: fondo negro semi-transparente (bg-black/95) con borde superior
-          - Enlaces apilados verticalmente con iconos hover verde (#5af388)
+          - Enlaces apilados verticalmente con iconos hover verde (#fad643)
         */}
         {mobileMenuOpen && (
-          <nav className="md:hidden bg-black/95 border-t border-white/10 px-6 py-4 flex flex-col space-y-3">
+          <nav className="md:hidden bg-[#f5f8ff] border-t border-[#dbe4ff] px-6 py-4 flex flex-col space-y-3">
             <a 
               href="#about" 
-              className="text-white hover:text-[#5af388] transition py-2"
+              className="text-[#1c2f80] hover:text-[#fad643] transition py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Nosotros
             </a>
             <a 
               href="#services" 
-              className="text-white hover:text-[#5af388] transition py-2"
+              className="text-[#1c2f80] hover:text-[#fad643] transition py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Servicios
             </a>
             <a 
               href="#portfolio" 
-              className="text-white hover:text-[#5af388] transition py-2"
+              className="text-[#1c2f80] hover:text-[#fad643] transition py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Portafolio
             </a>
             <a 
               href="#contact" 
-              className="text-white hover:text-[#5af388] transition py-2"
+              className="text-[#1c2f80] hover:text-[#fad643] transition py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Contacto
@@ -414,12 +407,12 @@ export default function Home() {
       </header>
 
       {/* Espaciador para compensar el header fixed */}
-      <div className="h-20" />
+      <div className="h-[95px]" />
 
       {/* ===== HERO SECTION: PRESENTACIÓN PRINCIPAL ===== */}
       {/* 
         Sección de introducción con propuesta de valor
-        - Título destacado con color de marca (#5af388)
+        - Título destacado con color de marca (#fad643)
         - Descripción clara de servicios
         - CTA (Call-To-Action) que navega a formulario de contacto
       */}
@@ -427,7 +420,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
             Soluciones digitales{" "}
-            <span className="text-[#5af388]">a la medida</span>
+            <span className="text-[#fad643]">a la medida</span>
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto mb-8">
             Creamos páginas web, aplicaciones y sistemas modernos para personas,
@@ -435,7 +428,7 @@ export default function Home() {
           </p>
           <a
             href="#contact"
-            className="inline-block bg-[#5af388] text-black px-8 py-3 rounded-full font-semibold hover:bg-[#45d97a] transition"
+            className="inline-block bg-[#fad643] text-black px-8 py-3 rounded-full font-semibold hover:bg-[#e8c12c] transition"
           >
             Iniciar proyecto
           </a>
@@ -473,7 +466,7 @@ export default function Home() {
                 <ul className="grid sm:grid-cols-2 gap-3 mt-4 text-gray-700">
                   <li className="flex items-start gap-3">
                     <svg
-                      className="w-5 h-5 text-[#5af388] shrink-0 mt-1"
+                      className="w-5 h-5 text-[#fad643] shrink-0 mt-1"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -497,7 +490,7 @@ export default function Home() {
                   </li>
                   <li className="flex items-start gap-3">
                     <svg
-                      className="w-5 h-5 text-[#5af388] shrink-0 mt-1"
+                      className="w-5 h-5 text-[#fad643] shrink-0 mt-1"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -520,7 +513,7 @@ export default function Home() {
                   </li>
                   <li className="flex items-start gap-3">
                     <svg
-                      className="w-5 h-5 text-[#5af388] shrink-0 mt-1"
+                      className="w-5 h-5 text-[#fad643] shrink-0 mt-1"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -542,7 +535,7 @@ export default function Home() {
                   </li>
                   <li className="flex items-start gap-3">
                     <svg
-                      className="w-5 h-5 text-[#5af388] shrink-0 mt-1"
+                      className="w-5 h-5 text-[#fad643] shrink-0 mt-1"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -568,8 +561,8 @@ export default function Home() {
 
               <div className="bg-linear-to-br from-white to-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm">
                 <div
-                  className="h-44 rounded-md flex items-center justify-center mb-4"
-                  style={{ backgroundColor: "#1b3012" }}
+                  className="h-44 rounded-md flex items-center justify-center mb-4 border border-[#dbe4ff]"
+                  style={{ backgroundColor: "#f5f8ff" }}
                 >
                   <img
                     src="/logo_horizontal.png"
@@ -584,7 +577,7 @@ export default function Home() {
                 </p>
                 <a
                   href="#contact"
-                  className="inline-block w-full text-center bg-[#5af388] text-black py-2 rounded-lg font-semibold hover:bg-[#45d97a] transition"
+                  className="inline-block w-full text-center bg-[#fad643] text-black py-2 rounded-lg font-semibold hover:bg-[#e8c12c] transition"
                 >
                   Contactar y cotizar
                 </a>
@@ -947,12 +940,13 @@ export default function Home() {
           <h3 className="text-3xl font-bold text-center mb-12">
             Nuestro equipo
           </h3>
-          <div className="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-8 text-center mx-auto">
-            {team.map((member) => (
+          <div className="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-10 text-center mx-auto">
+            {team.map((member, idx) => (
               <button
                 key={member.name}
                 onClick={() => setSelectedMember(member)}
-                className="bg-white p-6 rounded-xl w-full md:w-64 shadow text-left focus:outline-none cursor-pointer hover:shadow-lg transition-shadow"
+                className="team-card-animate group bg-white p-8 rounded-2xl w-full md:w-[24rem] shadow text-left focus:outline-none cursor-pointer border border-transparent hover:border-[#fad643]/60 hover:shadow-[0_18px_40px_-20px_rgba(28,47,128,0.55)] hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-500"
+                style={{ animationDelay: `${idx * 140}ms` }}
               >
                 <div className="mx-auto mb-4">
                   {member.image ? (
@@ -960,16 +954,16 @@ export default function Home() {
                       src={member.image}
                       alt={member.name}
                       loading="lazy"
-                      className="w-20 h-20 rounded-full object-cover mx-auto"
+                      className="w-28 h-28 rounded-full object-cover mx-auto transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
-                    <div className="w-20 h-20 bg-[#5af388] rounded-full mx-auto mb-0 flex items-center justify-center text-sm text-white">
+                    <div className="w-28 h-28 bg-[#fad643] rounded-full mx-auto mb-0 flex items-center justify-center text-base text-white">
                       Próx.
                     </div>
                   )}
                 </div>
-                <h4 className="font-semibold">{member.name}</h4>
-                <p className="text-sm text-gray-600">{member.role}</p>
+                <h4 className="font-semibold text-xl mb-1">{member.name}</h4>
+                <p className="text-base text-gray-600">{member.role}</p>
               </button>
             ))}
           </div>
@@ -1014,7 +1008,7 @@ export default function Home() {
                     href={selectedMember.portfolioLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block mt-6 bg-[#5af388] text-black px-6 py-2 rounded-lg font-semibold hover:bg-[#45d97a] transition"
+                    className="inline-block mt-6 bg-[#fad643] text-black px-6 py-2 rounded-lg font-semibold hover:bg-[#e8c12c] transition"
                   >
                     Ver portafolio
                   </a>
@@ -1071,7 +1065,7 @@ export default function Home() {
                   placeholder="Nombre Completo"
                   required
                   disabled={isLoading}
-                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#fad643] disabled:bg-gray-100 disabled:cursor-not-allowed"
                 />
               </div>
 
@@ -1087,7 +1081,7 @@ export default function Home() {
                   placeholder="email@ejemplo.com"
                   required
                   disabled={isLoading}
-                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#fad643] disabled:bg-gray-100 disabled:cursor-not-allowed"
                 />
               </div>
 
@@ -1102,7 +1096,7 @@ export default function Home() {
                   placeholder="+57 312 3456789"
                   required
                   disabled={isLoading}
-                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#fad643] disabled:bg-gray-100 disabled:cursor-not-allowed"
                 />
               </div>
 
@@ -1141,7 +1135,7 @@ export default function Home() {
                 placeholder="Dinos que idea tienes en mente y la hacemos realidad!!!"
                 required
                 disabled={isLoading}
-                className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5af388] disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="block w-full border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#fad643] disabled:bg-gray-100 disabled:cursor-not-allowed"
               />
             </div>
 
@@ -1161,7 +1155,7 @@ export default function Home() {
                 type="checkbox"
                 required
                 disabled={isLoading}
-                className="mt-1 h-4 w-4 text-[#5af388] border-gray-300 rounded disabled:cursor-not-allowed cursor-pointer"
+                className="mt-1 h-4 w-4 text-[#fad643] border-gray-300 rounded disabled:cursor-not-allowed cursor-pointer"
               />
               <label
                 htmlFor="privacy"
@@ -1172,7 +1166,7 @@ export default function Home() {
                   href="/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#5af388] underline hover:text-[#45d97a] transition"
+                  className="text-[#fad643] underline hover:text-[#e8c12c] transition"
                 >
                   políticas de privacidad
                 </a>
@@ -1202,7 +1196,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="inline-flex items-center bg-[#5af388] text-black px-6 py-2 rounded-md font-semibold hover:bg-[#45d97a] transition cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
+                className="inline-flex items-center bg-[#fad643] text-black px-6 py-2 rounded-md font-semibold hover:bg-[#e8c12c] transition cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
                 {isLoading ? "Enviando..." : "Enviar"}
               </button>
@@ -1215,17 +1209,17 @@ export default function Home() {
       <footer className="text-center py-8 text-sm text-gray-600 border-t">
         <div className="flex items-center justify-center gap-4 mb-4">
           <div
-            className="flex items-center justify-center w-12 h-12 rounded-full"
-            style={{ backgroundColor: "#1b3012" }}
+            className="flex items-center justify-center w-16 h-16 rounded-full border border-[#dbe4ff]"
+            style={{ backgroundColor: "#f5f8ff" }}
           >
             <img
               src="/logo_vertical.png"
               alt="KCJ logo"
-              className="w-15 h-15 object-contain"
+              className="w-12 h-12 object-contain"
             />
           </div>
           <div className="text-left">
-            <div className="text-xl font-bold" style={{ color: "#5af388" }}>
+            <div className="text-xl font-bold" style={{ color: "#fad643" }}>
               KCJ
             </div>
             <div className="text-sm" style={{ color: "#000000" }}>
@@ -1240,7 +1234,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 font-medium"
-            style={{ color: "#1b3012" }}
+            style={{ color: "#1c2f80" }}
             aria-label="Instagram"
           >
             <span className="text-sm">Instagram</span>
