@@ -1,7 +1,7 @@
 /**
  * @file AppRouter.jsx - Sistema de enrutamiento de la aplicación
  * @description
- * Define todas las rutas disponibles en la aplicación web de KCJ DevStudio.
+ * Define todas las rutas disponibles en la aplicación web de Kore-Code.
  * Utiliza React Router para manejar la navegación entre páginas sin recargar
  * el navegador, lo que proporciona una experiencia más fluida al usuario (SPA).
  * 

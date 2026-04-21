@@ -5,7 +5,7 @@
  * 
  * ESTADO ACTUAL: Componente placeholder
  * Esta página está reservada para expandirse con contenido sobre la empresa:
- * - Historia de KCJ DevStudio
+ * - Historia de Kore-Code
  * - Misión, visión y valores
  * - Logros y premios
  * - Información del equipo detallada

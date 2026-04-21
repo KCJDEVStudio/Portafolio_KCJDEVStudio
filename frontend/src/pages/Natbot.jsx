@@ -49,7 +49,7 @@ export default function Natbot() {
         - z-50: Por encima de todo contenido
         - Glassmorphism: bg-black/30 backdrop-blur-md cuando hay scroll
         - Incluye navegación responsive (desktop/mobile)
-        - Logo de KCJ DevStudio con enlace a inicio...
+        - Logo de Kore-Code con enlace a inicio...
       */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -269,7 +269,7 @@ export default function Natbot() {
                   - Clarifica que es un centro educativo local diferente
                   - No está afiliado a la plataforma internacional Crehana
                   - Importante: ambas organizaciones comparten nombre pero son entidades distintas
-                  - Protege legalmente a KCJ DevStudio y al cliente
+                  - Protege legalmente a Kore-Code y al cliente
                 */}
                 <p className="text-sm text-gray-400 mb-6">Centro educativo local – no afiliado a la plataforma internacional Crehana.</p>
                 <p className="text-gray-200 mb-6 leading-relaxed">
@@ -415,21 +415,21 @@ export default function Natbot() {
           >
             <img
               src="/logo_vertical.png"
-              alt="KCJ logo"
+              alt="Kore-Code logo"
               loading="lazy"
               className="w-15 h-15 object-contain"
             />
           </div>
           <div className="text-left">
             <div className="text-xl font-bold" style={{ color: "#fad643" }}>
-              KCJ
+              Kore-Code
             </div>
             <div className="text-sm" style={{ color: "#000000" }}>
               DevStudio
             </div>
           </div>
         </div>
-        <div>© {new Date().getFullYear()} KCJ DevStudio. Todos los derechos reservados.</div>
+        <div>© {new Date().getFullYear()} Kore-Code. Todos los derechos reservados.</div>
       </footer>
     </div>
   );

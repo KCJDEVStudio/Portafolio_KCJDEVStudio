@@ -1,5 +1,5 @@
 /**
- * @file Home.jsx - Página principal de KCJ DevStudio
+ * @file Home.jsx - Página principal de Kore-Code
  * @description
  * Componente que renderiza la página de inicio completa incluyendo:
  * - Header sticky con navegación
@@ -118,7 +118,7 @@ export default function Home() {
 
   // ==================== DATOS DEL EQUIPO ====================
   /**
-   * Array de objetos que contiene información del equipo de KCJ DevStudio
+  * Array de objetos que contiene información del equipo de Kore-Code
    * Usado para renderizar tarjetas del equipo y modales
    *
    * Propiedades de cada miembro:
@@ -328,7 +328,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-[95px] flex items-center justify-between">
           <img
             src="/logo_horizontal.png"
-            alt="KCJ DevStudio"
+            alt="Kore-Code"
             className="h-50 w-auto object-contain"
           />
 
@@ -450,7 +450,7 @@ export default function Home() {
                   Sobre nosotros
                 </h3>
                 <p className="text-gray-700 leading-relaxed mb-4 text-base md:text-lg">
-                  En KCJ DevStudio desarrollamos soluciones de programación a la
+                  En Kore-Code desarrollamos soluciones de programación a la
                   medida para personas, emprendedores y empresas que buscan
                   llevar sus ideas al mundo digital. Diseñamos y entregamos
                   páginas web, aplicaciones, sistemas y automatizaciones
@@ -566,7 +566,7 @@ export default function Home() {
                 >
                   <img
                     src="/logo_horizontal.png"
-                    alt="KCJ logo"
+                    alt="Kore-Code logo"
                     className="max-h-28 md:max-h-75 w-auto object-contain mx-auto"
                   />
                 </div>
@@ -1214,16 +1214,16 @@ export default function Home() {
           >
             <img
               src="/logo_vertical.png"
-              alt="KCJ logo"
+              alt="Kore-Code logo"
               className="w-12 h-12 object-contain"
             />
           </div>
           <div className="text-left">
             <div className="text-xl font-bold" style={{ color: "#fad643" }}>
-              KCJ
+              Kore-Code
             </div>
-            <div className="text-sm" style={{ color: "#000000" }}>
-              DevStudio
+            <div className="hidden" style={{ color: "#000000" }}>
+              Studio
             </div>
           </div>
         </div>
@@ -1254,7 +1254,7 @@ export default function Home() {
         </div>
 
         <div>
-          © {new Date().getFullYear()} KCJ DevStudio. Todos los derechos
+          © {new Date().getFullYear()} Kore-Code. Todos los derechos
           reservados.
         </div>
       </footer>

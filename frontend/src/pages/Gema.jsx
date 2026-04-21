@@ -398,21 +398,21 @@ export default function Gema() {
           >
             <img
               src="/logo_vertical.png"
-              alt="KCJ logo"
+              alt="Kore-Code logo"
               loading="lazy"
               className="w-15 h-15 object-contain"
             />
           </div>
           <div className="text-left">
             <div className="text-xl font-bold" style={{ color: "#fad643" }}>
-              KCJ
+              Kore-Code
             </div>
             <div className="text-sm" style={{ color: "#000000" }}>
               DevStudio
             </div>
           </div>
         </div>
-        <div>© {new Date().getFullYear()} KCJ DevStudio. Todos los derechos reservados.</div>
+        <div>© {new Date().getFullYear()} Kore-Code. Todos los derechos reservados.</div>
       </footer>
     </div>
   );

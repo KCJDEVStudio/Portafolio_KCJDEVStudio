@@ -67,7 +67,7 @@ export default function Privacy() {
           <a href="/">
             <img
               src="/logo_horizontal.png"
-              alt="KCJ DevStudio"
+              alt="Kore-Code"
               className="h-50 w-auto object-contain"
             />
           </a>
@@ -110,7 +110,7 @@ export default function Privacy() {
                   <span className="text-[#fad643]">1.</span> Responsable del Tratamiento de Datos
                 </h2>
                 <p className="mb-4">
-                  <strong>Razón Social:</strong> KCJ DevStudio
+                  <strong>Razón Social:</strong> Kore-Code
                 </p>
                 <p className="mb-4">
                   <strong>Ubicación:</strong> Colombia
@@ -125,7 +125,7 @@ export default function Privacy() {
                   </a>
                 </p>
                 <p>
-                  KCJ DevStudio es responsable del tratamiento de tus datos
+                  Kore-Code es responsable del tratamiento de tus datos
                   personales de conformidad con la Ley 1581 de 2012 y su
                   Decreto Reglamentario 1377 de 2013.
                 </p>
@@ -255,7 +255,7 @@ export default function Privacy() {
                   </li>
                   <li>Cumplimiento de obligaciones legales y reglamentarias</li>
                   <li>
-                    Intereses legítimos de KCJ DevStudio en responder consultas
+                    Intereses legítimos de Kore-Code en responder consultas
                     y ofrecer servicios
                   </li>
                 </ul>
@@ -433,7 +433,7 @@ export default function Privacy() {
                     descrito en esta política
                   </li>
                   <li>
-                    Recibir comunicaciones de KCJ DevStudio sobre nuestros
+                    Recibir comunicaciones de Kore-Code sobre nuestros
                     servicios
                   </li>
                   <li>
@@ -507,7 +507,7 @@ export default function Privacy() {
 
                 <div className="bg-gray-50 rounded-lg p-6 space-y-3">
                   <p>
-                    <strong>Nombre de la Empresa:</strong> KCJ DevStudio
+                    <strong>Nombre de la Empresa:</strong> Kore-Code
                   </p>
                   <p>
                     <strong>País:</strong> Colombia
@@ -583,13 +583,13 @@ export default function Privacy() {
           >
             <img
               src="/logo_vertical.png"
-              alt="KCJ logo"
+              alt="Kore-Code logo"
               className="w-12 h-12 object-contain"
             />
           </div>
           <div className="text-left">
             <div className="text-xl font-bold" style={{ color: "#fad643" }}>
-              KCJ
+              Kore-Code
             </div>
             <div className="text-sm" style={{ color: "#000000" }}>
               DevStudio
@@ -598,7 +598,7 @@ export default function Privacy() {
         </div>
 
         <div>
-          © {new Date().getFullYear()} KCJ DevStudio. Todos los derechos
+          © {new Date().getFullYear()} Kore-Code. Todos los derechos
           reservados.
         </div>
       </footer>
